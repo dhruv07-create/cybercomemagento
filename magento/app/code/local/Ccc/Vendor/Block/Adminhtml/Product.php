@@ -4,10 +4,10 @@
  {
    public function __construct()
    {
+   	  parent::__construct();
    	  $this->_controller = 'adminhtml_product';
    	  $this->_blockGroup='vendor';
    	  $this->_headerText = 'Product Grid';
-   	  parent::__construct();
    	  $this->removeButton('add');
    }
  }

@@ -4,13 +4,13 @@ class Ccc_Vendor_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Widge
 
     public function __construct()
     {
+        $this->setId('productGrid');
         parent::__construct();
-        $this->setId('vendorGrid');
         $this->setDefaultSort('entity_id');
         $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
-        $this->setUseAjax(true);
-        $this->setVarNameFilter('vendor_filter');
+        $this->setUseAjax(false);
+        $this->setVarNameFilter('vendor_product_filter');
 
     }
 
@@ -91,14 +91,14 @@ class Ccc_Vendor_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Widge
             $adminStore
         );
 
-         $collection->joinAttribute(
+     /*    $collection->joinAttribute(
             'firstname',
             'vendor/firstname',
             'vendor_id',
             null,
             'left',
             $adminStore
-        );
+        );*/
       
         $collection->addFieldToFilter('request',['eq'=>'0']); 
 
@@ -106,6 +106,7 @@ class Ccc_Vendor_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Widge
         $this->setCollection($collection);
         parent::_prepareCollection();
         return $this;
+        
 
    }
 
@@ -131,12 +132,12 @@ class Ccc_Vendor_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Widge
                 'index'  => 'sku',
             ));
 
-        $this->addColumn('Vendor Name',
+    /*    $this->addColumn('Vendor Name',
             array(
                 'header' => Mage::helper('vendor')->__('Vendor Name'),
                 'width'  => '50px',
                 'index'  => 'firstname',
-            ));
+            ));*/
 
         $this->addColumn('Vendor Request',
             array(
@@ -190,15 +191,15 @@ class Ccc_Vendor_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Widge
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', array('_current' => true));
+        return $this->getUrl('*/*/index', array('_current' => true));
     }
 
- //   public function getRowUrl($row)
-  //  {
-   //     return $this->getUrl('*/*/', array(
-  //          'store' => $this->getRequest()->getParam('store'),
-   //         'id'    => $row->getId())
-   //     );
-   // }
- 
+//   public function getRowUrl($row)
+ //  {
+  //     return $this->getUrl('*/*/', array(
+    //       'store' => $this->getRequest()->getParam('store'),
+     //      'id'    => $row->getId())
+      // );
+  // }  
+   
 }
