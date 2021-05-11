@@ -1,0 +1,282 @@
+<?php
+
+$groups = $this->getAttributeGroups();
+$attribute = $this->getAttribute()->getData();
+$inputType = $this->getRequest()->getParam('type');
+
+$options = $this->getAttributeOptions($attribute['attribute_id']);
+
+$groupId = $this->getAttributeGroup($attribute['attribute_id']);
+
+//   echo '<pre>';
+ //  print_r($options);
+ //  die();
+
+?>
+
+ <h2 class="block-title"    >Create Attribute</h2>
+<br><br>
+
+ <form action="<?php echo $this->getSaveUrl(); ?>" id='form' method='post' >
+
+ <table cellspacing="0" class="form-list">
+   <tbody>
+
+    <tr>
+        <td class="label"><label for="frontend_input">Input Type: </label></td>
+    <td class="value">
+        <select id="frontend_input"  onchange="sendParam1(this);" name="attribute[frontend_input]" title="Catalog Input Type for Store Owner" class="select" <?php if($attribute['frontend_input']){echo 'disabled'; } ?>  >
+                <option value="text" selected="selected" <?php if($this->getRequest()->getParam('inputType')
+                =='text' || $attribute['frontend_input'] == 'text'){echo 'selected';} ?> >Text Field</option>
+                <option value="textarea" <?php if($this->getRequest()->getParam('inputType')=='textarea' || $attribute['frontend_input'] == 'textarea'){echo 'selected';} ?> >Text Area</option>
+                <option value="date" <?php if($this->getRequest()->getParam('inputType')=='date' || $attribute['frontend_input'] == 'date'){echo 'selected';} ?>>Date</option>
+                <option value="boolean" <?php if($this->getRequest()->getParam('inputType')=='boolean' || $attribute['frontend_input'] == 'boolean'){echo 'selected';} ?>>Yes/No</option>
+                <option value="multiselect" <?php if($this->getRequest()->getParam('inputType')=='multiselect' || $attribute['frontend_input'] == 'multiselect'){echo 'selected';} ?>>Multiple Select</option>
+                <option value="select" <?php if($this->getRequest()->getParam('inputType')=='select' || $attribute['frontend_input'] == 'select' ){echo 'selected';} ?>>Dropdown</option>s
+                <option value="price" <?php if($this->getRequest()->getParam('inputType')=='price' || $attribute['frontend_input'] == 'price'){echo 'selected';} ?>>Price</option>
+                <option value="media_image" <?php if($this->getRequest()->getParam('inputType')=='media_image' || $attribute['frontend_input'] == 'media_image'){echo 'selected';} ?>>Media Image</option>
+</select>            </td>
+    </tr>
+
+   	<tr>
+   		 <td class="label"><label for="Group">Group: </label></td>
+   		<td>
+   			<select   name='group' >
+		   	   <option value=0 >--please select --</option>
+		   	  <?php foreach ($groups as $group) { ?> 
+		   	   <option  <?php if($groupId==$group['attribute_group_id']){ echo 'selected'; }; ?> value="<?php echo $group['attribute_group_id']; ?>" ><?php echo $this->getGroupName($group); ?></option>
+   	         <?php } ?> 
+          </select>
+   		</td>
+   	</tr>
+
+   	<tr>
+   		<td class="label"><label>Attribute Lable:</label></td>
+   		<td>
+            <input type="text" name="attribute[frontend_label]" value="<?php echo $attribute['frontend_label'] ; ?>" >
+   		</td>
+   	</tr>
+
+
+
+<tr>
+        <td class="label"><label for="is_unique">Unique Value: </label></td>
+    <td class="value">
+        <select id="is_unique" name="attribute[is_unique]" title="Unique Value (not shared with other products)" class=" select">
+<option value="1" <?php if($attribute['is_unique']==1){ echo 'selected' ;} ?>  >Yes</option>
+<option value="0" <?php if(!$attribute['is_unique']){ echo 'selected'; } ?>  <?php if($attribute['is_unique']==0){ echo 'selected' ;}?> >No</option>
+</select>                    <p class="note" id="note_is_unique"><span>Not shared with other products</span></p>
+            </td>
+    </tr>
+<tr>
+        <td class="label"><label for="is_required">Values Required: </label></td>
+    <td class="value">
+        <select id="is_required" name="attribute[is_required]" title="Values Required" class=" select">
+<option value="1" <?php if($attribute['is_required']==1){ echo 'selected' ;}?> >Yes</option>
+<option value="0"  <?php if($attribute['is_required']==0){ echo 'selected' ;}?> <?php if(!$attribute['is_required']){ echo 'selected'; } ?> >No</option>
+</select>            </td>
+    </tr>
+<tr>
+        <td class="label"><label for="frontend_class">Input Validation for Store Owner: </label></td>
+    <td class="value">
+        <select   id="frontend_class" name="attribute[frontend_class]" title="Input Validation for Store Owner" class=" select">
+<option value="" selected="selected">None</option>
+<option value="validate-number" <?php if($attribute['frontend_class']=='validate-number'){echo 'selected'; } ?>  >Decimal Number</option>
+<option value="validate-digits" <?php if($attribute['frontend_class']=='validate-digits'){echo 'selected'; } ?> >Integer Number</option>
+<option value="validate-email" <?php if($attribute['frontend_class']=='validate-email'){echo 'selected'; } ?> >Email</option>
+<option value="validate-url" <?php if($attribute['frontend_class']=='validate-url'){echo 'selected'; } ?> >URL</option>
+<option value="validate-alpha" <?php if($attribute['frontend_class']=='validate-alpha'){echo 'selected'; } ?> >Letters</option>
+<option value="validate-alphanum" <?php if($attribute['frontend_class']=='validate-alphanum'){echo 'selected'; } ?> >Letters (a-z, A-Z) or Numbers (0-9)</option>
+</select>            </td>
+    </tr>
+            </div>
+        </div>
+</div>
+<!-- <tr>
+   <td> -->
+   <?php if($this->getRequest()->getParam('inputType')=='multiselect' || $this->getRequest()->getParam('inputType')=='select' || $attribute['frontend_input']=='multiselect' || $attribute['frontend_input']=='select' ) : ?> 
+     <div class="entity-edit" id="matage-options-panel">
+    <div class="entry-edit-head">
+    </div>
+    <div class="box">
+        <div class="hor-scroll">
+            <table class="dynamic-grid" cellspacing="0"  cellpadding="0">
+                <tr id="attribute-options-table">
+                                          <!--   <th>Admin</th>
+                                            <th>Default Store View</th>
+                                            <th>Position</th>
+                        <th class="nobr a-center">Is Default</th> -->
+                        <th>
+                                                            <button  id="add_new_option_button" title="Add Option" type="button" class="scalable add" onclick="" style=""><span><span><span>Add Option</span></span></span></button>                                                    </th>
+                    </tr>
+                    <tr class="no-display template" id="row-template">
+                                                <td><input name="option[value][{{id}}][0]" placeholder="Admin" value="{{store0}}" class=" required-option" type="text" /></td>
+                                                <td><input name="option[value][{{id}}][1]" placeholder="Default Store View"  value="{{store1}}" class="" type="text" /></td>
+                                                <td class="a-center"><input class="" type="text" name="option[order][{{id}}]" value="{{sort_order}}" placeholder="Position" /></td>
+                        <td><input class="input-radio" type="radio" name="default[]" value="{{id}}" /></td>
+                        <td class="a-left">
+                            <input type="hidden" class="delete-flag" name="option[delete][{{id}}]" value="" />
+                                                            <button  id="id_c800e40efe4de6e36e40b891ffb357e4" title="Delete" type="button" class="scalable delete delete-option" onclick="" style=""><span><span><span>Delete</span></span></span></button>                                                    </td>
+                    </tr>
+            </table>
+        </div>
+        <input type="hidden" id="option-count-check" value="" />
+    </div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+var optionDefaultInputType = 'radio';
+
+// IE removes quotes from element.innerHTML whenever it thinks they're not needed, which breaks html.
+var templateText =
+        '<tr class="option-row">'+
+            '<td><input name="attribute[option][value][{{id}}][0]" placeholder="Admin" value="{{store0}}" class="input-text required-option" type="text" /><\/td>'+
+            '<td><input name="attribute[option][value][{{id}}][1]" value="{{store1}}" placeholder="Default Store View" class="input-text" type="text" /><\/td>'+
+            '<td><input class="input-text" type="text" name="attribute[option][order][{{id}}]" value="{{sort_order}}" placeholder="Position"/><\/td>'+
+            '<td class="a-center"><input class="input-radio" type="{{intype}}" name="attribute[default][]" value="{{id}}" {{checked}} /><\/td>'+
+            '<td class="a-left" id="delete_button_container_{{id}}">'+
+                '<input type="hidden" class="delete-flag" name="attribute[option][delete][{{id}}]" value="" />'+
+                                    '<button  id="id_c800e40efe4de6e36e40b891ffb357e4" title="Delete" type="button" class="scalable delete delete-option" onclick="" style=""><span><span><span>Delete</span></span></span></button>'+
+                            '<\/td>'+
+        '<\/tr>';
+
+var attributeOption = {
+    table : $('attribute-options-table'),
+    templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
+    templateText : templateText,
+    itemCount : 0,
+    totalItems : 0,
+    isReadOnly: 0,
+    add : function(data) {
+        this.template = new Template(this.templateText, this.templateSyntax);
+        var isNewOption = false;
+        if(!data.id){
+            data = {};
+            data.id  = 'option_'+this.itemCount;
+            isNewOption = true;
+        }
+        if (!data.intype)
+            data.intype = optionDefaultInputType;
+        Element.insert(this.table, {after: this.template.evaluate(data)});
+        if (isNewOption && !this.isReadOnly) {
+            this.enableNewOptionDeleteButton(data.id);
+        }
+        this.bindRemoveButtons();
+        this.itemCount++;
+        this.totalItems++;
+        this.updateItemsCountField();
+    },
+    remove : function(event){
+        var element = $(Event.findElement(event, 'tr')); // !!! Button already
+                                                               // have table parent in safari
+        // Safari workaround
+        element.ancestors().each(function(parentItem){
+           if (parentItem.hasClassName('option-row')) {
+               element = parentItem;
+               throw $break;
+           } else if (parentItem.hasClassName('box')) {
+               throw $break;
+           }
+        });
+
+
+        if(element){
+            var elementFlags = element.getElementsByClassName('delete-flag');
+            if(elementFlags[0]){
+                elementFlags[0].value=1;
+            }
+
+            element.addClassName('no-display');
+            element.addClassName('template');
+            element.hide();
+            this.totalItems--;
+            this.updateItemsCountField();
+        }
+    },
+    updateItemsCountField: function() {
+        if (this.totalItems > 0) {
+            $('option-count-check').value = '1';
+        } else {
+            $('option-count-check').value = '';
+        }
+    },
+    enableNewOptionDeleteButton: function(id) {
+        $$('#delete_button_container_' + id + ' button').each(function(button) {
+            button.enable();
+            button.removeClassName('disabled');
+        });
+    },
+    bindRemoveButtons : function(){
+        var buttons = $$('.delete-option');
+        for(var i=0;i<buttons.length;i++){
+            if(!$(buttons[i]).binded){
+                $(buttons[i]).binded = true;
+                Event.observe(buttons[i], 'click', this.remove.bind(this));
+            }
+        }
+    }
+
+}
+if($('row-template')){
+    $('row-template').remove();
+}
+attributeOption.bindRemoveButtons();
+
+if($('add_new_option_button')){
+    Event.observe('add_new_option_button', 'click', attributeOption.add.bind(attributeOption));
+}
+Validation.addAllThese([
+    ['required-option', 'Failed', function(v) {
+        return !Validation.get('IsEmpty').test(v);
+}]]);
+Validation.addAllThese([
+    ['required-options-count', 'Options is required', function(v) {
+        return !Validation.get('IsEmpty').test(v);
+}]]);
+ 
+<?php for ($i=0; $i<count($options); $i+=2) { ?>
+
+<?php echo 'attributeOption.add({"checked":"","intype":"checkbox","id":"'.$options[$i]['option_id'].'","sort_order":"'.$options[$i]['sort_order'].'","store0":"'.$options[$i]['value'].'","store1":"'.$options[$i+1]['value'].'"});' ?>
+
+<?php } ?>    
+
+//]]>
+</script>
+
+</div>
+    </li>
+</ul>
+<script type="text/javascript">
+    vendor_attribute_tabsJsTabs = new varienTabs('vendor_attribute_tabs', 'edit_form', 'vendor_attribute_tabs_main', []);
+</script>
+
+  <?php endif; ?>
+                    </div>
+                   
+<!--    </td>
+</tr> -->
+<tr>
+	<td>
+ <input type="submit" name="btnsubmit" value="submit" class='button' >
+    </td>
+</tr>
+            </tbody>
+        </table>
+</form>
+
+
+
+<script type="text/javascript">
+  
+  function sendParam1(menu) {
+      
+      var droupdown = document.getElementById('frontend_input');
+
+      var value = droupdown.value;
+
+      var form = document.getElementById('form');
+      form.setAttribute('action',"<?php echo $this->getUrl('*/*/inputType'); ?>");
+      form.submit();
+  }
+
+</script> 

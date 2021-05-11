@@ -1,0 +1,40 @@
+<?php
+
+$attributes = $this->getAttributes();
+
+?>
+
+<h2 class="block-title">Attributes</h2>
+<br><br>
+
+<a  href="<?php echo $this->getUrl('*/attribute/new') ; ?>" class="button" >Create Attribute</a>
+<br><br>
+<table border="1" width="100%">
+	
+    <tr>
+    	<th>Id</th>
+    	<th>Attribute Label</th>
+    	<th>Searchable</th>
+    	<th>Filterable</th>
+    	<th>Visible</th>
+    	<th>Action</th>
+    </tr>
+
+    <?php foreach ($attributes->getData() as $key => $attribute) { ?>
+
+      <tr>
+    	<td><?php echo $attribute['attribute_id'] ; ?></td>
+    	<td><?php echo $attribute['frontend_label'] ; ?></td>
+    	<td><?php echo $attribute['is_searchable'] ; ?></td>
+    	<td><?php echo $attribute['is_filterable'] ; ?></td>
+    	<td><?php echo $attribute['is_visible'] ; ?></td>
+    	<td>
+    		<a href="<?php echo $this->getEditUrl($attribute); ?>">Edit</a>|
+    		<a href="<?php echo $this->getDeleteUrl($attribute); ?>">Delete</a>
+    	</td>
+    </tr>
+
+
+    <?php } ?>	
+
+</table>

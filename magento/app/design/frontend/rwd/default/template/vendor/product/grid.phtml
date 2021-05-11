@@ -1,0 +1,51 @@
+<?php
+
+$collection = $this->getCollection();
+
+
+?>
+
+<h3>Product Details</h3><hr>
+
+<br>
+<a href="<?php echo $this->getUrl('*/*/new'); ?>" class='button' >Add Product</a>
+<br>
+<br>
+<table border="2" width="100%" >
+   <tr>	
+  <th><b>Index</b></th>  
+	<th><b>Name</b></th>
+	<th><b>SKU</b></th>
+	<th><b>Price</b></th>
+	<th><b>Vendor_status</b></th>
+    <th><b>Vendor_log</b></th>
+    <th><b>admin_status</b></th>
+    <th><b>admin_log</b></th>
+    <th><b>Action</b></th>
+   </tr>
+
+   <?php if(!$collection->getData()): ?>
+       <tr><td colspan="9" align="center" ><?php echo 'No-Data' ; ?></td></tr>
+   <?php else : ?>
+    <?php $index = 1; ?>
+  <?php foreach ($collection->getData() as $entity){ ?>
+   <tr>	
+  <td><?php echo $index; ?></td>
+	<td><?php echo $entity['name']; ?></td>
+	<td><?php echo $entity['sku']; ?></td>
+	<td><?php echo (int)$entity['price']; ?></td>
+	<td><?php echo $entity['vendor_status']; ?></td>
+  <td><?php echo $entity['vendor_log']; ?></td> 
+  <td><?php echo $entity['admin_status']; ?></td> 
+  <td><?php echo $entity['admin_log']; ?></td> 
+    <td>
+  
+      <a  <?php if($entity['admin_status']=='pending'){ echo 'style="pointer-events: none;color: red"'; } ?>  href="<?php echo $this->getUrl('*/*/edit',['id'=>$entity['entity_id']]); ?>">Edit</a> |
+      <a  <?php if($entity['admin_status']=='pending'){ echo 'style="pointer-events: none;color:red"'; } ?> href="<?php echo $this->getUrl('*/*/delete',['id'=>$entity['entity_id']]); ?>">Delete</a>
+
+    </td>
+   </tr>
+      
+  <?php $index++; } endif; ?> 	
+  
+</table>

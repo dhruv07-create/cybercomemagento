@@ -1,0 +1,33 @@
+<?php
+
+$assignedAttributes = $this->getAssignedAttribute();
+$unAssignedAttributes = $this->getUnAssignedAttribute();
+?>
+
+<h2 class="block-title">Create Group</h2>
+<hr><br><br>
+
+<form action="<?php echo $this->getSaveUrl();?>" method='post'>
+	   
+	   GroupName: 
+       <input type="text" name="attribute_group_name">
+
+       <br><br>
+
+       <h5><b>UnAssigned Attribute</b></h5>
+
+        <?php if(!$unAssignedAttributes->getData()): ?>
+           No attribute
+       <?php else: ?> 
+
+       <?php foreach ($unAssignedAttributes->getData() as $attribute) { ?> 
+       
+         <input type="checkbox" name="new[]" value="<?php echo $attribute['attribute_id']; ?>" > <?php echo $attribute['frontend_label']?><br>
+
+       <?php  } ?>
+       
+       <?php endif; ?><br>
+
+       <input type="submit" name="create_group_save" value="Save" class="button">
+
+</form>

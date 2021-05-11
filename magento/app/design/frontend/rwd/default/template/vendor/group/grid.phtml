@@ -1,0 +1,31 @@
+<?php
+
+$groups = $this->getAttributeGroups();
+?>
+
+<h2 class="block-title">Groups</h2>
+<hr><br><br>
+
+<a href="<?php echo $this->getUrl('*/*/create'); ?>"class='button'>Create Group</a>
+<br>
+<br>
+
+<table border="1" cellpadding="15" cellspacing="0" width="100%">
+	<tr>
+	  <th>Id</th>	
+	  <th>Name</th>	
+	  <th>Action</th>	
+	</tr>
+	
+<?php foreach ($groups->getData() as $group) {
+?>
+	<tr>
+		<td><?php echo $group['attribute_group_id']; ?></td>
+		<td><?php echo $this->getGroupName($group); ?></td>
+		<td>
+			<a href="<?php echo $this->getEditUrl($group); ?>"   >Edit</a> | 
+			<a href="<?php echo $this->getDeleteUrl($group); ?>" >Delete</a>
+		</td>
+	</tr>
+<?php } ?>	
+</table>

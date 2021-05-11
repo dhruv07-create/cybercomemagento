@@ -1,0 +1,116 @@
+<?php
+$attributes = $this->getAttributes();
+$product = $this->getVendorproductdata()->getData();
+
+/*$optionsValue = $product['multi_16'];
+echo '<pre>';
+print_r($optionsValue);
+die();*/
+?>
+<table class="data-table">
+	<?php foreach ($attributes as $key => $attribute) : ?>
+		<tr>
+			<td><p><?php echo $attribute->getFrontendLabel(); ?></p></td>
+			<td>
+				<?php if($attribute->getFrontendInput() == 'text'): ?>
+						<input type="text" <?php if($attribute->getIsRequired()) { echo 'required'; } ?> name='<?php echo  $attribute->getAttributeCode();?>' value="<?php echo $product[strtolower($attribute->getAttributeCode())] ?>">
+				<?php elseif($attribute->getFrontendInput() == 'textarea') : ?>
+						<textarea <?php if($attribute->getIsRequired()) { echo 'required'; } ?> name='<?php echo  $attribute->getAttributeCode(); ?>'><?php echo $product[strtolower($attribute->getAttributeCode())] ?></textarea>
+				<?php elseif($attribute->getFrontendInput() == 'weight'): ?>
+						<input <?php if($attribute->getIsRequired()) { echo 'required'; } ?> type="weight" name='<?php echo  $attribute->getAttributeCode(); ?>' value="<?php echo $product[strtolower($attribute->getAttributeCode())] ?>">
+				<?php elseif($attribute->getFrontendInput() == 'price'): ?>
+						<input type="price" <?php if($attribute->getIsRequired()) { echo 'required'; } ?> name='<?php echo  $attribute->getAttributeCode(); ?>' value="<?php echo $product[strtolower($attribute->getAttributeCode())] ?>">
+				<?php elseif($attribute->getFrontendInput() == 'boolean'): ?>
+						<select <?php if($attribute->getIsRequired()) { echo 'required'; } ?> name='<?php echo  $attribute->getAttributeCode(); ?>'>
+							<?php if ($product[strtolower($attribute->getAttributeCode())] == '0') : ?>
+								<option value="0" selected >No</option>
+								<option value="1">Yes</option>
+							<?php elseif($product[strtolower($attribute->getAttributeCode())] == '1') : ?>
+								<option value="0">No</option>
+								<option value="1" selected="">Yes</option>
+							<?php else :?>
+								<option value="0">No</option>
+								<option value="1">Yes</option>
+							<?php endif; ?>
+						</select>
+				<?php elseif($attribute->getFrontendInput() == 'select' && $attribute->getIsUserDefined()): ?>
+					<?php $options = $this->getOptions($attribute->getAttributeId()); ?>
+					<?php $optionsValue = $product[strtolower($attribute->getAttributeCode())];?>
+						<select name='<?php echo  $attribute->getAttributeCode(); ?>' <?php if($attribute->getIsRequired()) { echo 'required'; } ?>>
+							<?php foreach ($options as $key => $option) : ?>
+								<?php if($optionsValue == $option['option_id']) : ?>
+									<option selected value='<?php echo $option['option_id'] ?>'><?php echo $option['value']; ?></option>
+								<?php else : ?>
+									<option value='<?php echo $option['option_id'] ?>'><?php echo $option['value']; ?></option>
+								<?php endif; ?>
+							<?php endforeach ?>
+						</select>
+
+					<?php elseif($attribute->getFrontendLabel() == 'Status'): ?>
+						<select <?php if($attribute->getIsRequired()) { echo 'required'; } ?> name='<?php echo  $attribute->getAttributeCode(); ?>'>
+							<?php if ($product[strtolower($attribute->getAttributeCode())] == '0') : ?>
+								<option value='1'>Enable</option>
+								<option value='0' selected >Disable</option>
+							<?php elseif($product[strtolower($attribute->getAttributeCode())] == '1') : ?>
+								<option value='1'  selected >Enable</option>
+								<option value='0'>Disable</option>
+							<?php else :?>
+								<option value='1'>Enable</option>
+								<option value='0'>Disable</option>
+							<?php endif; ?>
+						</select>
+
+					<?php elseif($attribute->getFrontendLabel() == 'Visibility'): ?>
+						<select <?php if($attribute->getIsRequired()) { echo 'required'; } ?> name="<?php echo $attribute->getAttributecode(); ?>">
+							<?php if ($product[strtolower($attribute->getAttributeCode())] == '1') : ?>
+								<option value="">-- Please Select --</option>
+								<option value="1"  selected="" >Not Visible Individually</option>
+								<option value="2">Catalog</option>
+								<option value="3">Search</option>
+								<option value="4" >Catalog, Search</option>
+							<?php elseif($product[strtolower($attribute->getAttributeCode())] == '2') : ?>
+								<option value="">-- Please Select --</option>
+								<option value="1">Not Visible Individually</option>
+								<option value="2" selected="" >Catalog</option>
+								<option value="3">Search</option>
+								<option value="4">Catalog, Search</option>
+							<?php elseif($product[strtolower($attribute->getAttributeCode())] == '3') : ?>
+								<option value="">-- Please Select --</option>
+								<option value="1">Not Visible Individually</option>
+								<option value="2" >Catalog</option>
+								<option value="3" selected="selected" >Search</option>
+								<option value="4">Catalog, Search</option>
+							<?php elseif($product[strtolower($attribute->getAttributeCode())] == '4') : ?>
+								<option value="">-- Please Select --</option>
+								<option value="1">Not Visible Individually</option>
+								<option value="2" >Catalog</option>
+								<option value="3">Search</option>
+								<option value="4"  selected="selected" >Catalog, Search</option>
+							<?php else :?>
+								<option value="" selected="">-- Please Select --</option>
+								<option value="1">Not Visible Individually</option>
+								<option value="2">Catalog</option>
+								<option value="3">Search</option>
+								<option value="4" selected="selected">Catalog, Search</option>
+							<?php endif; ?>
+						</select>
+				<?php elseif($attribute->getFrontendInput() == 'multiselect'): ?>
+					<?php $optionsValue = $product[strtolower($attribute->getAttributeCode())]; ?>
+					<?php $optionsValue = explode(',', $optionsValue); ?>	
+					<?php $options = $this->getOptions($attribute->getAttributeId()); ?>
+							<select <?php if($attribute->getIsRequired()) { echo 'required'; } ?> multiple name='<?="{$attribute->getAttributeCode()}[]";?>'>
+								<?php foreach ($options as $key => $option) : ?>
+									<?php if(in_array($option['option_id'], $optionsValue)) : ?>
+										<option selected="" value='<?php echo $option["option_id"] ?>'><?php echo $option['value']; ?></option>
+									<?php else: ?>
+										<option value='<?php echo $option["option_id"]; ?>'><?php echo $option['value']; ?></option>
+									<?php endif; ?>
+								<?php endforeach; ?>
+							</select>
+					<?php elseif($attribute->getFrontendInput() == 'date'): ?>
+						<input <?php if($attribute->getIsRequired()) { echo 'required'; } ?> type="date" name='<?php echo  $attribute->getAttributeCode(); ?>' value="<?php echo $product[strtolower($attribute->getAttributeCode())] ?>">
+				<?php endif ?>
+			</td>
+		</tr>
+	<?php endforeach ?>
+</table>

@@ -1,0 +1,53 @@
+<?php
+
+$assignedAttributes = $this->getAssignedAttribute();
+
+//secho '<pre>'; print_r($assignedAttributes->getData()); die();
+
+$unAssignedAttributes = $this->getUnAssignedAttribute();
+?>
+
+<h2 class="block-title">Edit Group</h2>
+<hr><br><br>
+
+<form action="<?php echo $this->getSaveUrl();?>" method='post'>
+	   
+	   GroupName: 
+       <input type="text" value="<?php echo $this->getGroupName(); ?>" name="attribute_group_name">
+
+       <br><br>
+
+       <h5><b>Assigned Attribute</b></h5>
+
+       <?php if(!$assignedAttributes->getData()): ?>
+           No attribute
+       <?php else: ?> 
+
+       <?php foreach ($assignedAttributes->getData() as $attribute) { ?> 
+       
+         <input type="checkbox" name="old[]" value="<?php echo $attribute['attribute_id'] ; ?>" checked> <?php echo $attribute['frontend_label']?><br>
+
+       <?php  } ?>
+
+       <?php endif; ?> <br>
+
+       <h5><b>UnAssigned Attribute</b></h5>
+
+        <?php if(!$unAssignedAttributes->getData()): ?>
+           No attribute
+       <?php else: ?> 
+
+       <?php foreach ($unAssignedAttributes->getData() as $attribute) { ?> 
+       
+         <input type="checkbox" name="new[]" value="<?php echo $attribute['attribute_id']; ?>" > <?php echo $attribute['frontend_label']?><br>
+
+       <?php  } ?>
+       
+       <?php endif; ?><br>
+
+      
+
+       <input type="submit" name="create_group_save" value="Save" class="button">
+
+</form>
+  
