@@ -5,10 +5,10 @@ class Ccc_Practice_Block_Adminhtml_Practice_Attribute_Edit extends Mage_Adminhtm
 
     public function __construct()
     {
-        parent::__construct();
         $this->_objectId = 'attribute_id';
         $this->_blockGroup = 'practice';
         $this->_controller = 'adminhtml_practice_attribute';
+        parent::__construct();
 
         if($this->getRequest()->getParam('popup')) {
             $this->_removeButton('back');
@@ -22,7 +22,7 @@ class Ccc_Practice_Block_Adminhtml_Practice_Attribute_Edit extends Mage_Adminhtm
                 )
             );
         }
-
+         // echo Mage::registry('entity_attribute')->getIsUserDefined(); die(); 
         if (!Mage::registry('entity_attribute')->getIsUserDefined()) {
             $this->_removeButton('delete');
         } else {

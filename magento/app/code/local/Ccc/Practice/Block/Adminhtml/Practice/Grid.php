@@ -10,7 +10,7 @@
         $this->setDefaultSort('entity_id');
         $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
-        $this->setUseAjax(true);
+        $this->setUseAjax(false);
         $this->setVarNameFilter('practice_filter');
 
     }
@@ -138,7 +138,7 @@
 
    public function getGridUrl()
    {
-       return $this->getUrl('*/*/grid', array('_current' => true));
+       return $this->getUrl('*/*/index', array('_current' => true));
    }
 
     public function getRowUrl($row)

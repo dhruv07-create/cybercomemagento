@@ -12,7 +12,7 @@ class Ccc_Practice_Block_Adminhtml_Practice_Attribute_Set_Toolbar_Add extends Ma
         $this->setChild('save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
-                    'label'     => Mage::helper('vendor')->__('Save Practice Attribute Set'),
+                    'label'     => Mage::helper('practice')->__('Save Practice Attribute Set'),
                     'onclick'   => 'if (addSet.submit()) disableElements(\'save\');',
                     'class' => 'save'
         )));
