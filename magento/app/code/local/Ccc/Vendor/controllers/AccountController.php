@@ -209,10 +209,12 @@ protected function _welcomeVendor(Ccc_Vendor_Model_Vendor $vendor, $isJustConfir
    protected function _loginPostRedirect()
     {
          $session = $this->_getSession();
+
         
         if (!$session->getBeforeAuthUrl() || $session->getBeforeAuthUrl() == Mage::getBaseUrl()) {
             // Set default URL to redirect customer to
             $session->setBeforeAuthUrl($this->_getHelper('vendor')->getAccountUrl());
+       
             // Redirect customer to the last page visited after logging in
 
             if ($session->isLoggedIn()) {
@@ -221,9 +223,11 @@ protected function _welcomeVendor(Ccc_Vendor_Model_Vendor $vendor, $isJustConfir
                 )) {
                     $referer = $this->getRequest()->getParam(Ccc_Vendor_Helper_Data::REFERER_QUERY_PARAM_NAME);
                     if ($referer) {
+
                         // Rebuild referer URL to handle the case when SID was changed
                         $referer = $this->_getModel('core/url')
                             ->getRebuiltUrl( $this->_getHelper('core')->urlDecodeAndEscape($referer));
+                        $referer = 'http://127.0.0.1/git/magento/account/';
                         if ($this->_isUrlInternal($referer)) {
                             $session->setBeforeAuthUrl($referer);
                         }
@@ -244,6 +248,7 @@ protected function _welcomeVendor(Ccc_Vendor_Model_Vendor $vendor, $isJustConfir
                 $session->setBeforeAuthUrl($session->getAfterAuthUrl(true));
             }
         }
+            
         $this->_redirectUrl($session->getBeforeAuthUrl(true));
 
     }
@@ -454,6 +459,7 @@ protected function _welcomeVendor(Ccc_Vendor_Model_Vendor $vendor, $isJustConfir
 
    public function createPostAction()
     {
+        try{
         $errUrl = $this->_getUrl('*/*/create', array('_secure' => true));
 
         if (!$this->_validateFormKey()) {
@@ -475,15 +481,31 @@ protected function _welcomeVendor(Ccc_Vendor_Model_Vendor $vendor, $isJustConfir
 
         $vendor = $this->_getVendor();
         $data = $this->getRequest()->getPost();
+         $model = Mage::getModel('vendor/vendor')->loadByEmail($data['email']);
+         if($model->getData())
+         {
+              throw new Exception("Email is already Available", 1);
+                                      
+         }
         $vendor->setFirstname($data['firstname'])
          ->setLastname($data['lastname'])
          ->setMiddlename($data['middlename'])
          ->setPasswordHash(md5($data['password']))
          ->setEmail($data['email']);
 
-         $vendor->save();
 
-         $this->_successProcessRegistration($vendor);
+         if($vendor->save())
+         {
+            $this->_redirect('*/*/login');
+         }
+
+        // $this->_successProcessRegistration($vendor);
+     }catch(Exception $e)
+     {
+        Mage::getModel('core/session')->addError($e->getMessage());
+        $this->_redirect("*/*/create");
+     }
+
        /* try {
             $errors = $this->_getVendorErrors($vendor);
          

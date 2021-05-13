@@ -132,18 +132,19 @@ class Ccc_Vendor_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Widge
                 'index'  => 'sku',
             ));
 
-    /*    $this->addColumn('Vendor Name',
+       /* $this->addColumn('firstname',
             array(
                 'header' => Mage::helper('vendor')->__('Vendor Name'),
                 'width'  => '50px',
                 'index'  => 'firstname',
             ));*/
 
-        $this->addColumn('Vendor Request',
+        $this->addColumn('vendor_status',
             array(
                 'header' => Mage::helper('vendor')->__('vendor_request'),
                 'width'  => '50px',
                 'index'  => 'vendor_status',
+                
             ));
 
       

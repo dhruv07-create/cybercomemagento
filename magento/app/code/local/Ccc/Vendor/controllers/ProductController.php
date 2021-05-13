@@ -60,7 +60,7 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action
 
     }
 	public function saveAction()
-	{
+	{   
           
 		if(!Mage::getModel('vendor/session')->isLoggedIn())
  	  	{
@@ -70,10 +70,27 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action
            try {
 
             $productData = $this->getRequest()->getPost();
+
+            $sku = $productData['sku'];
+
+             $connection = Mage::getModel('core/resource')->getConnection('core_read');
+
+             $entity_type_id = Mage::getModel('eav/entity')->setType('vendor_product')->getTypeId();
+
+             $q = "SELECT attribute_id FROM eav_attribute where entity_type_id ={$entity_type_id} AND attribute_code = 'sku';";
+
+             $attributeId = $connection->fetchOne($q);
+
+             $q = "SELECT value FROM vendor_product_varchar WHERE attribute_id ={$attributeId} AND value = '{$sku}' ";
+         
+             $check = $connection->fetchAll($q);
+
+             if($check && !$this->getRequest()->getParam('id'))
+             { 
+                throw new Exception("Sku all ready Available", 1);     
+             }
+             
             unset($productData['submit']);
-
-
-
 
             $productVendor = Mage::getSingleton('vendor/product');
             date_default_timezone_set('Asia/Kolkata');

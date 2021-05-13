@@ -16,7 +16,7 @@ class Ccc_Vendor_Block_Product_Edit_Tabs extends Mage_Core_Block_Template
 
     public function getVendorproduct()
     {
-    	return Mage::registry('current_vendorproduct');
+        return Mage::registry('current_vendorproduct');
     }
 
     public function getVendor()
@@ -71,7 +71,7 @@ class Ccc_Vendor_Block_Product_Edit_Tabs extends Mage_Core_Block_Template
          //echo $vendorProductDefaultAttributes->getSelect(); die();
 
         $vendorProductAttributes = array_merge($vendorProductAttributes->getItems(), $vendorProductDefaultAttributes->getItems());
-
+       
         if (!$this->getVendorproduct()->getId()) {
             foreach ($vendorProductAttributes as $attribute) {
                 if ($attribute->getDefaultValue() != '') {
