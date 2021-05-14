@@ -15,7 +15,7 @@ class Ccc_Practice_Block_Adminhtml_Practice_Edit_Tabs extends Mage_Adminhtml_Blo
         return Mage::registry('current_practice');
     }
 
-    protected function _beforeToHtml()
+    protected function _prepareLayout()
     {    
         $vendorAttributes = Mage::getResourceModel('eav/entity_attribute_collection')
              ->setEntityTypeFilter(Mage::getModel('eav/entity')->setType('practice')->getTypeId());
@@ -29,14 +29,17 @@ class Ccc_Practice_Block_Adminhtml_Practice_Edit_Tabs extends Mage_Adminhtml_Blo
             }
         }
         
-        $attributeSetId = $this->getVendor()->getResource()->getEntityType()->getDefaultAttributeSetId();
+        //$attributeSetId = $this->getVendor()->getResource()->getEntityType()->getDefaultAttributeSetId();
+     
 
+        if (!$setId = $this->getVendor()->getAttributeSetId()) {
+            $setId = $this->getRequest()->getParam('set', null);
+        } 
 
-
-        // $attributeSetId = 21;
-        
-        $groupCollection = Mage::getResourceModel('eav/entity_attribute_group_collection')
-            ->setAttributeSetFilter($attributeSetId)
+        if($setId)
+        {
+            $groupCollection = Mage::getResourceModel('eav/entity_attribute_group_collection')
+            ->setAttributeSetFilter($setId)
             ->setSortOrder()
             ->load();
 
@@ -47,13 +50,13 @@ class Ccc_Practice_Block_Adminhtml_Practice_Edit_Tabs extends Mage_Adminhtml_Blo
                 $defaultGroupId = $group->getId();
             }
 
-        }	
+        }   
 
 
         foreach ($groupCollection as $group) {
             $attributes = array();
             foreach ($vendorAttributes as $attribute) {
-                if ($this->getVendor()->checkInGroup($attribute->getId(),$attributeSetId, $group->getId())) {
+                if ($this->getVendor()->checkInGroup($attribute->getId(),$setId, $group->getId())) {
                     $attributes[] = $attribute;
                 }
             }
@@ -73,7 +76,19 @@ class Ccc_Practice_Block_Adminhtml_Practice_Edit_Tabs extends Mage_Adminhtml_Blo
                 'content'   => $block,
                 'active'    => $active
             ));
+        } 
+        }else{
+             $this->addTab('set', array(
+                'label'     => Mage::helper('practice')->__('Settings'),
+                'content'   => $this->getLayout()
+                    ->createBlock('practice/adminhtml_practice_edit_tab_settings')->toHtml(),
+                'active'    => true
+            ));
         }
+
+        // $attributeSetId = 21;
+        
+       
       return parent::_beforeToHtml();
     }
 }

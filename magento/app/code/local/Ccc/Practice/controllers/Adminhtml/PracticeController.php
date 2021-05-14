@@ -86,7 +86,7 @@ class Ccc_Practice_Adminhtml_PracticeController extends Mage_Adminhtml_Controlle
             }
 
             $practice->addData($practiceData);
-
+            $practice->setAttributeSetId($this->getRequest()->getParam('set'));
             $practice->save();
 
             Mage::getSingleton('core/session')->addSuccess("practice data added.");

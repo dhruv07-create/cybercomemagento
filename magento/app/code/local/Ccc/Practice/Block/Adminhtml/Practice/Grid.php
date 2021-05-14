@@ -142,10 +142,14 @@
    }
 
     public function getRowUrl($row)
-    { 
-        return $this->getUrl('*/*/edit', array(
+    {   
+        $load = Mage::getModel('practice/practice')->load($row->getId());        
+ 
+      return $this->getUrl('*/*/edit', array(
             'store' => $this->getRequest()->getParam('store'),
-            'id'    => $row->getId())
+            'id'    => $row->getId(),
+            'set'   =>$row->getAttributeSetId()
+        )
         );
     }
 }

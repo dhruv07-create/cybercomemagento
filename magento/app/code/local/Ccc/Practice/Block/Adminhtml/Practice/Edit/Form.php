@@ -7,7 +7,7 @@ class Ccc_Practice_Block_Adminhtml_Practice_Edit_Form extends Mage_Adminhtml_Blo
         $form = new Varien_Data_Form(
             array(
                 'id'      => 'edit_form',
-                'action'  => $this->getUrl('*/*/save', array('id' => $this->getRequest()->getParam('id'))),
+                'action'  => $this->getUrl('*/*/save', array('id' => $this->getRequest()->getParam('id'),'_current'=>true)),
                 'method'  => 'post',
                 'enctype' => 'multipart/form-data',
             )
