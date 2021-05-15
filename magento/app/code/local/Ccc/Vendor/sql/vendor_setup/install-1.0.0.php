@@ -1,5 +1,6 @@
 <?php
 
+
 $this->startSetup();
 
 $this->addEntityType(Ccc_Vendor_Model_Resource_Vendor::ENTITY, [
