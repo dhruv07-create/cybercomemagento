@@ -186,7 +186,7 @@ $setup->addAttribute(Ccc_Vendor_Model_Resource_Vendor::ENTITY, 'middlename', arr
 $setup->addAttribute(Ccc_Vendor_Model_Resource_Vendor::ENTITY, 'password_hash', array(
     'group'                      => 'General',
     'input'                      => 'text',
-    'type'                       => 'int',
+    'type'                       => 'varchar',
     'label'                      => 'Password Hash',
     'frontend_class'             => 'validate-digits',
     'backend'                    => '',

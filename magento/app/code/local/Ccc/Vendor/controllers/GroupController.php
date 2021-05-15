@@ -4,7 +4,7 @@
  {
  	  public function indexAction()
  	  { 
-      
+  
  	  	if(!Mage::getModel('vendor/session')->isLoggedIn())
  	  	{
  	  		$this->_redirect('*/account/login');
