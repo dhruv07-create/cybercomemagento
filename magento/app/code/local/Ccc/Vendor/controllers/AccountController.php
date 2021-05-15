@@ -17,7 +17,7 @@
         // a brute-force protection here would be nice
 
         parent::preDispatch();
-
+        
         if (!$this->getRequest()->isDispatched()) {
             return;
         }

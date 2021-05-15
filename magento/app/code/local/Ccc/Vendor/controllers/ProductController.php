@@ -4,6 +4,7 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action
 
 {
 
+
 	public function indexAction()
     {
 
@@ -106,7 +107,7 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action
                  {
                  $productVendor->setVendorStatus('add');
                  }
-                 $productVendor->setVendorLog(date('j/m/Y  h:i:s A'));
+                 $productVendor->setVendorLog(date('j/m/Y'));
                  $productVendor->setRequestStatus('0');
                  $productVendor->setRequest('0');
                  $productVendor->setAdminLog('0');
@@ -117,7 +118,7 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action
             }else{
 
                  $productVendor->setVendorStatus('add');
-                 $productVendor->setVendorLog(date('j/m/Y  h:i:s A'));
+                 $productVendor->setVendorLog(date('j/m/Y'));
                  $productVendor->setRequestStatus('0');
                  $productVendor->setRequest('0');
                  $productVendor->setAdminLog('0');
@@ -158,7 +159,7 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action
            $model = Mage::getModel('vendor/product')->load($id);
 
            $model->setVendorStatus('delete');
-           $model->setVendorLog(date('j/m/Y  h:i:s A'));
+           $model->setVendorLog(date('j/m/Y'));
            $model->setRequestStatus('0');
            $model->setRequest('0');
            $model->setAdminLog('0');

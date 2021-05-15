@@ -31,7 +31,7 @@
             $productModel->setRequestStatus('1');
             $productModel->setAdminStatus('Approved');
             date_default_timezone_set('Asia/Kolkata');
-            $productModel->setAdminLog(date('j/m/Y H:i:s'));
+            $productModel->setAdminLog(date('j/m/Y'));
             $catalogModel = Mage::getModel('catalog/product');
 
     	 	if($productModel->getVendorStatus()=='add')
@@ -135,7 +135,7 @@
             $productModel->setRequestStatus('0');
             $productModel->setAdminStatus('Rejected');
              date_default_timezone_set('Asia/Kolkata');
-            $productModel->setAdminLog(date('j/m/Y H:i:s'));
+            $productModel->setAdminLog(date('j/m/Y'));
  
              if(!$productModel->save())
              {
