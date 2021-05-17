@@ -14,7 +14,6 @@
 
         $this->renderLayout();
     }
-
     public function approveAction()
     {
     	 $productId = $this->getRequest()->getParam('id');
@@ -150,6 +149,15 @@
           
       }
             $this->_redirect("*/*/");	
+    }
+
+    public function editAction(){
+        $productId = $this->getRequest()->getParam('id');
+        $product = Mage::getModel('vendor/product')->load($productId);
+        Mage::register('product',$product);
+        $this->loadLayout();
+        $this->_setActiveMenu('vendor/vendor');
+        $this->renderLayout();
     }
 }
   

@@ -8,7 +8,7 @@ class Ccc_Vendor_Block_Product_Edit_Tabs_Attribute extends Mage_Core_Block_Templ
 {
 	
 	function __construct()
-	{
+	{ 
 		$this->setTemplate('vendor/product/edit/tabs/attribute.phtml');
 	}
 

@@ -9,3 +9,4 @@ class Ccc_Vendor_Block_Adminhtml_Vendor_Edit extends Mage_Adminhtml_Block_Widget
         parent::__construct();
     }
 }
+ 
