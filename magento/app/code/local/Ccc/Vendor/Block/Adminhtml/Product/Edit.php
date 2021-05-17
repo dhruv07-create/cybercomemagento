@@ -18,7 +18,7 @@ class Ccc_Vendor_Block_Adminhtml_Product_Edit extends Mage_Adminhtml_Block_Widge
         $this->addButton ('approve', $data, 1, 0,  'header'); 
         $data = array(
             'label' =>  'Reject',
-            'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/reject',['_current'=>true]) . '\')',
+            'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/unapprove',['_current'=>true]) . '\')',
             'class'     =>  'delete'
        );
         $this->addButton ('reject', $data, 1, 0,  'header'); 

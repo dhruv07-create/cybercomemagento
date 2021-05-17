@@ -1,6 +1,8 @@
 <?php
 $attributes = $this->getAttributes();
+//echo '<pre>';
 $product = $this->getVendorproductdata()->getData();
+//print_r($product); die();
 
 /*$optionsValue = $product['multi_16'];
 echo '<pre>';
@@ -108,7 +110,7 @@ die();*/
 								<?php endforeach; ?>
 							</select>
 					<?php elseif($attribute->getFrontendInput() == 'date'): ?>
-						<input <?php if($attribute->getIsRequired()) { echo 'required'; } ?> type="date" name='<?php echo  $attribute->getAttributeCode(); ?>' value="<?php echo $product[strtolower($attribute->getAttributeCode())] ?>">
+						<input <?php if($attribute->getIsRequired()) { echo 'required'; } ?> type="date" name='<?php echo  $attribute->getAttributeCode(); ?>' value="<?php echo $product[strtolower($attribute->getAttributeCode())];?>">
 				<?php endif ?>
 			</td>
 		</tr>
