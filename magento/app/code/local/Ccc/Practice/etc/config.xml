@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+  <modules>	
+   <Ccc_Practice>
+   	  <version>0.3.0</version>
+   </Ccc_Practice> 	
+  </modules>
+   
+   <admin>
+   	   <routers>
+          <practice>
+          	 <use>admin</use>
+             <args>
+             	<module>Ccc_Practice</module>
+             	<frontName>practice</frontName>
+             </args> 
+          </practice>  	   	   
+   	   </routers>
+   </admin>   
+
+   <adminhtml>
+   	   <menu>
+		<practice>
+			<title>Practice</title>
+			<sort_order>242</sort_order>
+			<children>
+				<practice>
+					<title>Manage</title>
+					<sort_order>1</sort_order>
+					<action>practice/adminhtml_practice</action>
+				</practice>
+        <practicee>
+          <title>ManageAttribute</title>
+          <sort_order>2</sort_order>
+          <action>practice/adminhtml_practice_attribute</action>
+        </practicee>
+        <practice12>
+          <title>ManageAttributeSet</title>
+          <sort_order>3</sort_order>
+          <action>practice/adminhtml_practice_set</action>
+        </practice12>                
+			</children>
+		</practice>Adminhtml_Practice_setController
+	</menu>
+  <layout>
+  <updates>
+    <practice>
+      <file>practice.xml</file>
+    </practice>
+  </updates>
+  </layout>
+   </adminhtml>
+
+   <global>
+   	  <models>
+   	  	  <practice>
+   	  	  	  <class>Ccc_Practice_Model</class>
+   	  	  	  <resourceModel>resource_practice</resourceModel>
+   	  	  </practice>
+   	  	  <resource_practice>
+   	  	  	  <class>Ccc_Practice_Model_Resource</class>
+   	  	  	  <entities>
+   	  	  	  	  <practice>
+	                    <table>practice</table>
+	                </practice>
+	                <practice_datetime>
+	                	<table>practice_datetime</table>
+		            </practice_datetime>
+		            <practice_decimal>
+		                <table>practice_decimal</table>
+		            </practice_decimal>
+		            <practice_int>
+		                <table>practice_int</table>
+		            </practice_int>
+		            <practice_text>
+		                <table>practice_text</table>
+		            </practice_text>
+		            <practice_varchar>
+		                <table>practice_varchar</table>
+		            </practice_varchar>
+		            <practice_char>
+		                <table>practice_char</table>
+		            </practice_char>
+		            <eav_attribute>
+                        <table>practice_eav_attribute</table>
+                    </eav_attribute>
+   	  	  	  </entities>
+   	  	  </resource_practice>
+   	  </models>
+
+   	  <resources>
+   	  	  <practice_setup>
+   	  	  	   <setup>
+   	  	  	   	   <module>Ccc_Practice</module>
+   	  	  	   	   <class>Ccc_Practice_Model_Resource_Setup</class>
+   	  	  	   </setup>
+   	  	  </practice_setup>
+   	  </resources>
+     
+      <helpers>
+          <practice><class>
+               Ccc_Practice_Helper
+          </class></practice>
+      </helpers>
+
+      <blocks>
+      	   <practice>
+      	   	  <class>Ccc_Practice_Block</class>
+      	   </practice>
+      </blocks>
+   </global>
+
+</config>
