@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <config>
+   <modules>
+      <Five_Final>
+         <active>true</active>
+         <codePool>local</codePool>
+      </Five_Final>
+   </modules>
+ </config>

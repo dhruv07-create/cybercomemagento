@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <config>
+ 	<modules>
+ 		<Five_Final>
+ 			<version>0.1.2</version>
+ 		</Five_Final>
+ 	</modules>
+
+ 	<admin>
+ 		<routers>
+ 			<asrs>
+ 			  <use>admin</use>
+ 			   <args>	
+ 			     <module>Five_Final</module>
+ 			     <frontName>final</frontName>
+ 			   </args>
+ 			</asrs>
+ 		</routers>
+ 	</admin>
+
+ 	<adminhtml>
+ 		<menu>
+ 			<fiva>
+ 				<title>Five_Final</title>
+ 				<sort_order>201</sort_order>
+ 				<children>
+ 			     <child1>		
+ 				  <title>Show_Records</title>
+ 				  <sort_order>1</sort_order>
+ 				  <action>final/adminhtml_index/index</action>
+ 				 </child1> 
+ 				</children>
+ 			</fiva>
+ 		</menu>
+ 	</adminhtml>
+
+   <global>
+ 
+   	  <blocks>
+   	  	 <final>
+   	  	 	<class>Five_Final_Block</class>
+   	  	 </final>
+   	  </blocks> 
+
+   	   <resources>
+   	   	   <final_setup>
+   	   	   	 <setup>
+   	   	   	  <module>Five_Final</module>
+   	   	   	 </setup> 
+   	   	   </final_setup>
+   	   </resources>
+   
+    <models>
+   	   <final>
+   	   	  <class>Five_Final_Model</class>
+   	   	  <resourceModel>final_resource</resourceModel>
+   	   </final>
+
+   	   <final_resource>
+   	   	  <class>Five_Final_Model_Resource</class>
+   	   	  <entities>
+   	   	  	 <myTable>
+   	   	  	 	<table>finaltable</table>
+   	   	  	 </myTable>
+   	   	  </entities>
+   	   </final_resource>
+    </models>
+
+ </global>
+
+ </config>
