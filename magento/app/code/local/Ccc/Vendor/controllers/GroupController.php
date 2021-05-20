@@ -37,6 +37,22 @@
                
 
  	  	  	  $data = $this->getRequest()->getPost();
+
+             if(!$data['attribute_group_name'])
+             {
+                
+                Mage::getModel('core/session')->addError('Group Name is required ');
+
+                if($this->getRequest()->getParam('attribute_group_id'))
+                {
+                $this->_redirect('*/*/edit',['_current'=>true]); 
+                }else{
+                $this->_redirect('*/*/create'); 
+                }
+               
+                 return;
+
+             }
               
               $default_set_id = Mage::getModel('eav/entity_setup','core_setup')
                                       ->getAttributeSetId('vendor_product','Default');         

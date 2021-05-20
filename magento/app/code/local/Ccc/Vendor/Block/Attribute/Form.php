@@ -46,6 +46,10 @@ class Ccc_Vendor_Block_Attribute_Form extends Mage_Core_Block_Template
             ['option_id'=>'main.option_id','sort_order'=>'main.sort_order']
           )
           ->addFieldToFilter('main_table.attribute_id',['eq'=>$idi])
+          ->setOrder(
+            'main.sort_order',
+            'asc'
+             )
           ;
 
           $options

@@ -40,8 +40,8 @@ $collection = $this->getCollection();
   <td><?php echo $entity['admin_log']; ?></td> 
     <td>
   
-      <a  <?php if($entity['admin_status']=='pending'){ echo 'style="pointer-events: none;color: red"'; } ?>  href="<?php echo $this->getUrl('*/*/edit',['id'=>$entity['entity_id']]); ?>">Edit</a> |
-      <a  <?php if($entity['admin_status']=='pending'){ echo 'style="pointer-events: none;color:red"'; } ?> href="<?php echo $this->getUrl('*/*/delete',['id'=>$entity['entity_id']]); ?>">Delete</a>
+      <a  <?php /*if($entity['admin_status']=='pending'){ echo 'style="pointer-events: none;color: red"'; }*/ ?>  href="<?php echo $this->getUrl('*/*/edit',['id'=>$entity['entity_id']]); ?>">Edit</a> |
+      <a  <?php //if($entity['admin_status']=='pending'){ echo 'style="pointer-events: none;color:red"'; } ?> href="<?php echo $this->getUrl('*/*/delete',['id'=>$entity['entity_id']]); ?>">Delete</a>
 
     </td>
    </tr>

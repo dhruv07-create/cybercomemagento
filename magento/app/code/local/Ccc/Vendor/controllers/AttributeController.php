@@ -89,6 +89,7 @@
                 $id = $this->getRequest()->getParam('attribute_id');
  
               $data = $this->getRequest()->getPost('attribute');
+              
               $vendorid = Mage::getModel('vendor/session')->getId();
 
               $model=Mage::getModel('vendor/resource_eav_productattribute');
@@ -100,10 +101,10 @@
                if (isset($data['attribute_code'])) {
                 $validatorAttrCode = new Zend_Validate_Regex(array('pattern' => '/^(?!event$)[a-z][a-z_0-9]{1,254}$/'));
                 if (!$validatorAttrCode->isValid($data['attribute_code'])) {
-                    $session->addError(
+                    Mage::getModel('core/session')->addError(
                         Mage::helper('vendor')->__('Attribute code is invalid. Please use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter. Do not use "event" for an attribute code.')
                     );
-                    $this->_redirect('*/*/create', array('attribute_id' => $id, '_current' => true));
+                    $this->_redirect('*/*/new', array('attribute_id' => $id, '_current' => true));
                     return;
                 }
             }
@@ -113,9 +114,9 @@
                 $validatorInputType = Mage::getModel('eav/adminhtml_system_config_source_inputtype_validator');
                 if (!$validatorInputType->isValid($data['frontend_input'])) {
                     foreach ($validatorInputType->getMessages() as $message) {
-                        $session->addError($message);
+                        Mage::getModel('core/session')->addError($message);
                     }
-                    $this->_redirect('*/*/create', array('attribute_id' => $id, '_current' => true));
+                    $this->_redirect('*/*/new', array('attribute_id' => $id, '_current' => true));
                     return;
                 }
             }

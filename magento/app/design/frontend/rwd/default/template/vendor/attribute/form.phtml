@@ -14,14 +14,19 @@ $groupId = $this->getAttributeGroup($attribute['attribute_id']);
 
 ?>
 
- <h2 class="block-title"    >Create Attribute</h2>
+ <h2 class="block-title"    >Create Attribute</h2><hr>
 <br><br>
 
  <form action="<?php echo $this->getSaveUrl(); ?>" id='form' method='post' >
 
  <table cellspacing="0" class="form-list">
    <tbody>
-
+    
+     <tr>
+       <td>
+        <input type="submit" name="btnsubmit" value="submit" class='button' >
+       </td>
+    </tr>
     <tr>
         <td class="label"><label for="frontend_input">Input Type: </label></td>
     <td class="value">
@@ -130,9 +135,9 @@ var optionDefaultInputType = 'radio';
 // IE removes quotes from element.innerHTML whenever it thinks they're not needed, which breaks html.
 var templateText =
         '<tr class="option-row">'+
-            '<td><input name="attribute[option][value][{{id}}][0]" placeholder="Admin" value="{{store0}}" class="input-text required-option" type="text" /><\/td>'+
-            '<td><input name="attribute[option][value][{{id}}][1]" value="{{store1}}" placeholder="Default Store View" class="input-text" type="text" /><\/td>'+
-            '<td><input class="input-text" type="text" name="attribute[option][order][{{id}}]" value="{{sort_order}}" placeholder="Position"/><\/td>'+
+            '<td><input name="attribute[option][value][{{id}}][0]" placeholder="Admin" value="{{store0}}" style="width:95%" class="input-text required-option" type="text" /><\/td>'+
+            '<td><input name="attribute[option][value][{{id}}][1]" value="{{store1}}" style="width:95%" placeholder="Default Store View" class="input-text" type="text" /><\/td>'+
+            '<td><input class="input-text" type="text" name="attribute[option][order][{{id}}]" value="{{sort_order}}" style="width:95%"placeholder="Position"/><\/td>'+
             '<td class="a-center"><input class="input-radio" type="{{intype}}" name="attribute[default][]" value="{{id}}" {{checked}} /><\/td>'+
             '<td class="a-left" id="delete_button_container_{{id}}">'+
                 '<input type="hidden" class="delete-flag" name="attribute[option][delete][{{id}}]" value="" />'+
@@ -234,6 +239,7 @@ Validation.addAllThese([
         return !Validation.get('IsEmpty').test(v);
 }]]);
  
+ <?php $options = array_reverse($options); ?>
 <?php for ($i=0; $i<count($options); $i+=2) { ?>
 
 <?php echo 'attributeOption.add({"checked":"","intype":"checkbox","id":"'.$options[$i]['option_id'].'","sort_order":"'.$options[$i]['sort_order'].'","store0":"'.$options[$i]['value'].'","store1":"'.$options[$i+1]['value'].'"});' ?>
@@ -252,14 +258,6 @@ Validation.addAllThese([
 
   <?php endif; ?>
                     </div>
-                   
-<!--    </td>
-</tr> -->
-<tr>
-	<td>
- <input type="submit" name="btnsubmit" value="submit" class='button' >
-    </td>
-</tr>
             </tbody>
         </table>
 </form>
