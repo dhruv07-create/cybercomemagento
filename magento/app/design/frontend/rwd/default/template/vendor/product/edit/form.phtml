@@ -1,11 +1,11 @@
 <h3 style="color: red">Please Fill Requirde All Fields(*)</h3>
-<form id="" action="<?php echo $this->getUrl('*/*/save',['id'=>$this->getRequest()->getParam('id')]); ?>" method = 'post' >
+<form id="form1" action="<?php echo $this->getUrl('*/*/save',['id'=>$this->getRequest()->getParam('id')]); ?>" method = 'post' >
 
 <div>
     <h2>Product Details</h2>
     <hr><br> 	
 
-   <input type="submit" name="submit" value="Submit" class="button" >
+   <input type="submit" name="submit" onclick="hi();" value="Submit" class="button" >
     <?php if($this->getRequest()->getParam('id')){ ?> 
    <a href="<?php echo $this->getUrl('*/*/delete',['id'=>$this->getRequest()->getParam('id')]); ?>" class = 'button' >Delete</a>
     <?php } ?> 
@@ -14,3 +14,9 @@
    <div id="vendorProductForm" ></div>
 
 </form>
+
+<script type="text/javascript">
+	
+    console.log(document.getElementById('form1'));
+
+</script>
