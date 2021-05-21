@@ -720,10 +720,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $isEdit         = (int)($this->getRequest()->getParam('id') != null);
 
         $data = $this->getRequest()->getPost();
-        echo '<pre>';
-        print_r($data);
-        die();
-
+      
         if ($data) {
             $this->_filterStockData($data['product']['stock_data']);
 

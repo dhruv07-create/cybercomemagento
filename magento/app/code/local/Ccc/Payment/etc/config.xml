@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Ccc_Payment>
+      <version>0.0.1</version>
+    </Ccc_Payment>
+  </modules>
+ 
+ <global>
+  <models>
+    <paymentc>
+      <class>Ccc_Payment_Model</class>
+    </paymentc>
+  </models>
+  
+  <helpers>
+   <paymentc>
+    <class>Ccc_Payment_Helper</class>
+   </paymentc>
+ 
+  </helpers>
+
+  <blocks>
+   <paymentc>
+    <class>Ccc_Payment_Block</class>
+   </paymentc>
+  </blocks>
+
+ </global>
+  <default>
+   <payment>
+      <paymentc>
+        <model>paymentc/standard</model>
+        <active>1</active>
+        <order_status>pending</order_status>
+        <title>COD</title>
+        <payment_action>sale</payment_action>
+        <submit_url>https://someurl.com</submit_url>
+        <merchant_id>Insert merchant id</merchant_id>
+        <allowspecific>0</allowspecific>
+        <sort_order>1</sort_order>
+        <can_use_checkout>1</can_use_checkout>
+      </paymentc>
+   </payment>
+  </default>
+ 
+  <frontend>
+    <routers>
+      <paymentc>
+        <use>standard</use>
+        <args>
+        <module>Ccc_Payment</module>
+        <frontname>customcard</frontname>
+        </args>
+      </paymentc>
+    </routers>
+  </frontend>
+</config>
