@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Ccc_Shipping1>
+      <version>0.0.1</version>
+    </Ccc_Shipping1>
+  </modules>
+  <global>
+    <models>
+      <shipping1>
+        <class>Ccc_Shipping1_Model</class>
+      </shipping1>
+    </models>
+    <helpers>
+      <shipping1>
+        <class>Ccc_Shipping1_Helper</class>
+      </shipping1>
+    </helpers>
+  </global>
+  <default>
+    <carriers>
+      <envato_customshippingmethod>
+        <active>1</active>
+        <sallowspecific>1</sallowspecific>
+        <model>shipping1/demo</model>
+        <name>Express</name>
+        <price>10.00</price>
+        <type>I</type>
+        <title>Express</title>
+      </envato_customshippingmethod>
+    </carriers>
+  </default>
+</config>

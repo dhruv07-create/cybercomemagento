@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+	<modules>
+		<Ccc_Shipping1>
+			<active>true</active>
+			<codePool>local</codePool>
+		</Ccc_Shipping1>
+		<depends>
+                <Mage_Shipping />
+        </depends>
+	</modules>
+</config>
