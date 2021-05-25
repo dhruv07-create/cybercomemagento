@@ -16,7 +16,6 @@ $groupId = $this->getAttributeGroup($attribute['attribute_id']);
 
  <h2 class="block-title"    >Create Attribute</h2><hr>
 <br><br>
-
  <form action="<?php echo $this->getSaveUrl(); ?>" id='form' method='post' >
 
  <table cellspacing="0" class="form-list">
@@ -24,6 +23,7 @@ $groupId = $this->getAttributeGroup($attribute['attribute_id']);
     
      <tr>
        <td>
+        <a href="<?php echo $this->getUrl('*/*/'); ?>" class='button'  >BACK</a>
         <input type="submit" name="btnsubmit" value="submit" class='button' >
        </td>
     </tr>

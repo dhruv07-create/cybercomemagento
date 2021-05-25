@@ -13,7 +13,7 @@
 <script type="text/javascript">
 var tabId;
 var tabsData = <?php echo json_encode($tabs) ?>;
-console.log(tabsData);
+
 
 <?php 
 
@@ -42,7 +42,6 @@ function getTabContent(tab, defaultTab = '') {
     if (document.getElementById('vendorProductForm')) {
         jQuery('.tab').each(function(id, obj) {
             var div = document.createElement('div');
-            console.log('ID : ' + obj.id);
             div.id = obj.id + '_content';
             jQuery(div).addClass('tabContent');
 

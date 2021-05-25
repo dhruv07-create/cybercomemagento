@@ -5,7 +5,7 @@
     <h2>Product Details</h2>
     <hr><br> 	
 
-   <input type="submit" name="submit" onclick="hi();" value="Submit" class="button" >
+   <input type="submit" name="submit" onclick="return checkDetails();" value="Submit" class="button" >
     <?php if($this->getRequest()->getParam('id')){ ?> 
    <a href="<?php echo $this->getUrl('*/*/delete',['id'=>$this->getRequest()->getParam('id')]); ?>" class = 'button' >Delete</a>
     <?php } ?> 
@@ -16,7 +16,29 @@
 </form>
 
 <script type="text/javascript">
-	
-    console.log(document.getElementById('form1'));
+
+
+    function checkDetails() {
+
+        flag = 0;
+
+        jQuery("input,select,textarea").each(function(){
+        	//alert(jQuery(this).attr("name")+' '+jQuery(this).attr("id"));
+            if(jQuery(this).attr("id") == "required"){
+                if(jQuery(this).val() == "" || jQuery(this).val() == undefined){
+                    ptag = jQuery(this).parent().prev().children()[0];
+                    alert("Please Fill "+jQuery(ptag).text()+" value");
+                    flag = 1;
+                    return false;
+                }
+            }
+        });
+        if(flag){
+            return false;
+        }else{
+        	return true;
+           // jQuery("#form1").submit();
+        }
+    };
 
 </script>

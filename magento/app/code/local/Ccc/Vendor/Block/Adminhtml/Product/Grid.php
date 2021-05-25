@@ -91,18 +91,18 @@ class Ccc_Vendor_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Widge
             $adminStore
         );
 
-     /*    $collection->joinAttribute(
-            'firstname',
-            'vendor/firstname',
-            'vendor_id',
+         $collection->joinAttribute(
+            'admin_status',
+            'vendor_product/admin_status',
+            'entity_id',
             null,
-            'left',
+            'inner',
             $adminStore
-        );*/
+        );
       
-        $collection->addFieldToFilter('request',['eq'=>'0']); 
+     //   $collection->getSelect()->where('at_request.value=?','0');
 
-  
+       // die();
         $this->setCollection($collection);
         parent::_prepareCollection();
         return $this;
@@ -146,6 +146,14 @@ class Ccc_Vendor_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Widge
                 'index'  => 'vendor_status',
                 
             ));
+
+        $this->addColumn('admin_status',
+            [
+               'header'=>'YourStatus',
+               'index'=>'admin_status',
+               'width'=>'40px'
+
+            ]);
 
       
         $this->addColumn('action1',

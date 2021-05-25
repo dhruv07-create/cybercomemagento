@@ -29,7 +29,7 @@
  *
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Vendor_Model_Observer
+class Ccc_Vendor_Model_Observer
 {
     /**
      * VAT ID validation processed flag code
@@ -97,17 +97,17 @@ class Mage_Vendor_Model_Observer
         }
 
         /** @var $customerAddress Mage_Customer_Model_Address */
-        $customerAddress = $observer->getCustomerAddress();
-        if ($customerAddress->getId()) {
-            Mage::register(self::VIV_CURRENTLY_SAVED_ADDRESS, $customerAddress->getId());
+        $vendorAddress = $observer->getVendorAddress();
+        if ($vendorAddress->getId()) {
+            Mage::register(self::VIV_CURRENTLY_SAVED_ADDRESS, $vendorAddress->getId());
         } else {
-            $configAddressType = Mage::helper('customer/address')->getTaxCalculationAddressType();
+            $configAddressType = Mage::helper('vendor/address')->getTaxCalculationAddressType();
 
-            $forceProcess = ($configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING)
-                ? $customerAddress->getIsDefaultShipping() : $customerAddress->getIsDefaultBilling();
+            $forceProcess = ($configAddressType == Mage_Vendor_Model_Address_Abstract::TYPE_SHIPPING)
+                ? $vendorAddress->getIsDefaultShipping() : $vendorAddress->getIsDefaultBilling();
 
             if ($forceProcess) {
-                $customerAddress->setForceProcess(true);
+                $vendorAddress->setForceProcess(true);
             } else {
                 Mage::register(self::VIV_CURRENTLY_SAVED_ADDRESS, 'new_address');
             }
@@ -122,13 +122,13 @@ class Mage_Vendor_Model_Observer
     public function afterAddressSave($observer)
     {
         /** @var $customerAddress Mage_Customer_Model_Address */
-        $customerAddress = $observer->getCustomerAddress();
-        $customer = $customerAddress->getCustomer();
+        $vendorAddress = $observer->getVendorAddress();
+        $vendor = $vendorAddress->getVendor();
 
-        $store = Mage::app()->getStore()->isAdmin() ? $customer->getStore() : null;
-        if (!Mage::helper('customer/address')->isVatValidationEnabled($store)
+        $store = Mage::app()->getStore()->isAdmin() ? $vendor->getStore() : null;
+        if (!Mage::helper('vendor/address')->isVatValidationEnabled($store)
             || Mage::registry(self::VIV_PROCESSED_FLAG)
-            || !$this->_canProcessAddress($customerAddress)
+            || !$this->_canProcessAddress($vendorAddress)
         ) {
             return;
         }
@@ -136,42 +136,42 @@ class Mage_Vendor_Model_Observer
         try {
             Mage::register(self::VIV_PROCESSED_FLAG, true);
 
-            /** @var $customerHelper Mage_Customer_Helper_Data */
-            $customerHelper = Mage::helper('customer');
+            /** @var $vendorHelper Mage_vendor_Helper_Data */
+            $vendorHelper = Mage::helper('vendor');
 
-            if ($customerAddress->getVatId() == ''
-                || !Mage::helper('core')->isCountryInEU($customerAddress->getCountry()))
+            if ($vendorAddress->getVatId() == ''
+                || !Mage::helper('core')->isCountryInEU($vendorAddress->getCountry()))
             {
-                $defaultGroupId = $customerHelper->getDefaultCustomerGroupId($customer->getStore());
+                $defaultGroupId = $vendorHelper->getDefaultVendorGroupId($vendor->getStore());
 
-                if (!$customer->getDisableAutoGroupChange() && $customer->getGroupId() != $defaultGroupId) {
-                    $customer->setGroupId($defaultGroupId);
-                    $customer->save();
+                if (!$vendor->getDisableAutoGroupChange() && $vendor->getGroupId() != $defaultGroupId) {
+                    $vendor->setGroupId($defaultGroupId);
+                    $vendor->save();
                 }
             } else {
 
-                $result = $customerHelper->checkVatNumber(
-                    $customerAddress->getCountryId(),
-                    $customerAddress->getVatId()
+                $result = $vendorHelper->checkVatNumber(
+                    $vendorAddress->getCountryId(),
+                    $vendorAddress->getVatId()
                 );
 
-                $newGroupId = $customerHelper->getCustomerGroupIdBasedOnVatNumber(
-                    $customerAddress->getCountryId(), $result, $customer->getStore()
+                $newGroupId = $vendorHelper->getVendorGroupIdBasedOnVatNumber(
+                    $vendorAddress->getCountryId(), $result, $vendor->getStore()
                 );
 
-                if (!$customer->getDisableAutoGroupChange() && $customer->getGroupId() != $newGroupId) {
-                    $customer->setGroupId($newGroupId);
-                    $customer->save();
+                if (!$vendor->getDisableAutoGroupChange() && $vendor->getGroupId() != $newGroupId) {
+                    $vendor->setGroupId($newGroupId);
+                    $vendor->save();
                 }
 
                 if (!Mage::app()->getStore()->isAdmin()) {
-                    $validationMessage = Mage::helper('customer')->getVatValidationUserMessage($customerAddress,
-                        $customer->getDisableAutoGroupChange(), $result);
+                    $validationMessage = Mage::helper('vendor')->getVatValidationUserMessage($vendorAddress,
+                        $vendor->getDisableAutoGroupChange(), $result);
 
                     if (!$validationMessage->getIsError()) {
-                        Mage::getSingleton('customer/session')->addSuccess($validationMessage->getMessage());
+                        Mage::getSingleton('vendor/session')->addSuccess($validationMessage->getMessage());
                     } else {
-                        Mage::getSingleton('customer/session')->addError($validationMessage->getMessage());
+                        Mage::getSingleton('vendor/session')->addError($validationMessage->getMessage());
                     }
                 }
             }
@@ -188,30 +188,30 @@ class Mage_Vendor_Model_Observer
     public function quoteSubmitAfter($observer)
     {
         /** @var $customer Mage_Customer_Model_Customer */
-        $customer = $observer->getQuote()->getCustomer();
+        $vendor = $observer->getQuote()->getVendor();
 
-        if (!Mage::helper('customer/address')->isVatValidationEnabled($customer->getStore())) {
+        if (!Mage::helper('vendor/address')->isVatValidationEnabled($vendor->getStore())) {
             return;
         }
 
-        if (!$customer->getId()) {
+        if (!$vendor->getId()) {
             return;
         }
 
-        $customer->setGroupId(
-            $customer->getOrigData('group_id')
+        $vendor->setGroupId(
+            $vendor->getOrigData('group_id')
         );
-        $customer->save();
+        $vendor->save();
     }
 
     /**
      * Clear customer flow password table
      *
      */
-    public function deleteCustomerFlowPassword()
+    public function deleteVendorFlowPassword()
     {
         $connection = Mage::getSingleton('core/resource')->getConnection('write');
         $condition  = array('requested_date < ?' => Mage::getModel('core/date')->date(null, '-1 day'));
-        $connection->delete($connection->getTableName('customer_flowpassword'), $condition);
+        $connection->delete($connection->getTableName('vendor_flowpassword'), $condition);
     }
 }

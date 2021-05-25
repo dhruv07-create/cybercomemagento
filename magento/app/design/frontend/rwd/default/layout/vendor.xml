@@ -7,12 +7,17 @@
         <reference name="top.links">
             <action method="addLink" translate="label title" module="vendor"><label>VendorAccount</label><url helper="vendor/getDashboardUrl"/><title>My Account</title><prepare/><urlParams/><position>201</position></action>
              <action method="addLink" translate="label title" module="vendor"><label>Vendor Register</label><url helper="vendor/getRegisterUrl"/><title>My Account</title><prepare/><urlParams/><position>202</position></action>
-             <action method="addLink" translate="label title" module="vendor"><label>Vendor Login</label><url helper="vendor/getLoginUrl"/><title>My Account</title><prepare/><urlParams/><position>202</position></action>
-              <action method="addLink" translate="label title" module="vendor"><label>Vendor Log out</label><url helper="vendor/getLogoutUrl"/><title>My Account</title><prepare/><urlParams/><position>202</position></action>
+            
         </reference>
     </default>
 
- 
+   
+    <vendor_logged_in>
+        <reference name="top.links">
+            <action method="removeLinkByUrl"><url helper="vendor/getRegisterUrl" /></action>
+            <action method="addLink" translate="label title" module="vendor"><label>Vendor Log Out</label><url helper="vendor/getLogoutUrl"/><title> Vendor_Log Out</title><prepare/><urlParams/><position>100</position></action>
+        </reference>
+    </vendor_logged_in>
 
  <vendor_account_login translate="label">
         <label>Vendor Account Login Form</label>
@@ -27,6 +32,16 @@
             <block type="vendor/form_login" name="vendor_form_login" template="vendor/form/login.phtml" />
         </reference>
     </vendor_account_login>
+
+      <vendor_logged_out>
+        <!---<reference name="right">
+            <block type="vendor/form_login" name="vendor_form_mini_login" before="-" template="vendor/form/mini.login.phtml"/>
+        </reference>-->
+        <reference name="top.links">
+            <action method="addLink" translate="label title" module="vendor"><label>VendorLog In</label><url helper="vendor/getLoginUrl"/><title>Vendor_Log In</title><prepare/><urlParams/><position>100</position></action>
+        </reference>
+        <remove name="reorder"></remove>
+    </vendor_logged_out>
    
       <vendor_account_create translate="label">
         <label>vendor Account Registration Form</label>
@@ -200,11 +215,9 @@
 
         <reference name="left_first">
             <block type="vendor/account_navigationproduct" name="vendor_account_navigationproduct" before="-" template="vendor/account/navigationproduct.phtml">
-             <action method="addLink" translate="label" module="vendor"><name>create attribute</name><path>vendor/attribute/new</path><label>Create Attribute</label></action>
+
              <action method="addLink" translate="label" module="vendor"><name>attribute Grid</name><path>vendor/attribute</path><label>Manage Attribute </label></action>
-              <action method="addLink" translate="label" module="vendor"><name>Create Product</name><path>vendor/product/new</path><label>Create Product</label></action>
-              <action method="addLink" translate="label" module="vendor"><name>manage Product</name><path>vendor/product/</path><label>Manage Product</label></action>              
-              <action method="addLink" translate="label" module="vendor"><name>create group</name><path>vendor/group/create</path><label>Create Group</label></action>
+              <action method="addLink" translate="label" module="vendor"><name>manage Product</name><path>vendor/product/</path><label>Manage Product</label></action>              xa
                <action method="addLink" translate="label" module="vendor"><name>Group Grid</name><path>vendor/group</path><label>Manage Group</label></action>
            </block>
             <block type="vendor/account_navigation" name="vendor_account_navigation" before="-" template="vendor/account/navigation.phtml">
