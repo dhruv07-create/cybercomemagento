@@ -32,9 +32,9 @@ $attributes1=[];
 				<?php elseif($attribute->getFrontendInput() == 'textarea') : ?>
 						<textarea id='<?php if($attribute->getIsRequired()) { echo 'required'; } ?>' name='<?php echo  $attribute->getAttributeCode(); ?>'><?php echo $product[strtolower($attribute->getAttributeCode())] ?></textarea>
 				<?php elseif($attribute->getFrontendInput() == 'weight'): ?>
-						<input id='<?php if($attribute->getIsRequired()) { echo 'required'; } ?>' type="number" name='<?php echo  $attribute->getAttributeCode(); ?>' value="<?php echo $product[strtolower($attribute->getAttributeCode())] ?>">
+						<input id='<?php if($attribute->getIsRequired()) { echo 'required'; } ?>' min='1' type="number" name='<?php echo  $attribute->getAttributeCode(); ?>' value="<?php echo $product[strtolower($attribute->getAttributeCode())] ?>">
 				<?php elseif($attribute->getFrontendInput() == 'price'): ?>
-						<input type="number" id='<?php if($attribute->getIsRequired()) { echo 'required'; } ?>' name='<?php echo  $attribute->getAttributeCode(); ?>' value="<?php echo $product[strtolower($attribute->getAttributeCode())] ?>">
+						<input type="number" min="1" id='<?php if($attribute->getIsRequired()) { echo 'required'; } ?>' name='<?php echo  $attribute->getAttributeCode(); ?>' value="<?php echo $product[strtolower($attribute->getAttributeCode())] ?>">
 				<?php elseif($attribute->getFrontendInput() == 'boolean'): ?>
 						<select id='<?php if($attribute->getIsRequired()) { echo 'required'; } ?>' name='<?php echo  $attribute->getAttributeCode(); ?>'>
 							<?php if ($product[strtolower($attribute->getAttributeCode())] == '0') : ?>

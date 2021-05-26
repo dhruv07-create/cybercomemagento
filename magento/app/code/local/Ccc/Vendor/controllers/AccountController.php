@@ -68,7 +68,6 @@
             $this->_redirect("*/*/login");
         }
         $this->loadLayout();
-        print_r($this->getLayout()->getUpdate()->getHandles());
         $this->_initLayoutMessages('vendor/session');
         $this->_initLayoutMessages('catalog/session');
         $this->getLayout()->getBlock('head')->setTitle($this->__('My Account'));

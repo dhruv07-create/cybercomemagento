@@ -82,6 +82,7 @@ class Ccc_Vendor_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Widge
             $adminStore
         );
 
+
         $collection->joinAttribute(
             'request_status',
             'vendor_product/request_status',
@@ -103,6 +104,18 @@ class Ccc_Vendor_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Widge
      //   $collection->getSelect()->where('at_request.value=?','0');
 
        // die();
+
+          $collection->joinAttribute(
+            'catalog_product_id',
+            'vendor_product/catalog_product_id',
+            'entity_id',
+            null,
+            'left',
+            $adminStore
+        );
+      
+
+
         $this->setCollection($collection);
         parent::_prepareCollection();
         return $this;
@@ -132,12 +145,12 @@ class Ccc_Vendor_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Widge
                 'index'  => 'sku',
             ));
 
-       /* $this->addColumn('firstname',
+        $this->addColumn('catalog_product_id',
             array(
-                'header' => Mage::helper('vendor')->__('Vendor Name'),
+                'header' => Mage::helper('vendor')->__('Catalog Product Id'),
                 'width'  => '50px',
-                'index'  => 'firstname',
-            ));*/
+                'index'  => 'catalog_product_id',
+            ));
 
         $this->addColumn('vendor_status',
             array(
