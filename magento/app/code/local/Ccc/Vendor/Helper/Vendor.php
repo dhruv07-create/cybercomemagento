@@ -7,7 +7,8 @@ class Ccc_Vendor_Helper_Vendor extends Mage_Core_Helper_Url
     {
         $inputTypes = array(
             'multiselect'   => array(
-                'backend_model'     => 'eav/entity_attribute_backend_array'
+                'backend_model'     => 'eav/entity_attribute_backend_array',
+                'source_model'      => 'eav/entity_attribute_source_table'
             ),
             'boolean'       => array(
                 'source_model'      => 'eav/entity_attribute_source_boolean'

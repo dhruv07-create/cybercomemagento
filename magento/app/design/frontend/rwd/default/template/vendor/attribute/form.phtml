@@ -2,16 +2,24 @@
 
 $groups = $this->getAttributeGroups();
 $attribute = $this->getAttribute()->getData();
-$inputType = $this->getRequest()->getParam('type');
+echo $inputType = $this->getRequest()->getParam('type');
+  if($this->getRequest()->getParam('inputType')){$check=$this->getRequest()->getParam('inputType');}else{ $check=$attribute['frontend_input'];}
+  if($check=='multiselect')
+  {
+    $typep='checkbox';
+  }else
+ {
+    $typep='radio';
+  }
 
 $options = $this->getAttributeOptions($attribute['attribute_id']);
 
 $groupId = $this->getAttributeGroup($attribute['attribute_id']);
 
-//   echo '<pre>';
- //  print_r($options);
- //  die();
-
+   /*  echo '<pre>';
+     print_r($attribute);
+     die();
+*/
 ?>
 
  <h2 class="block-title"    >Create Attribute</h2><hr>
@@ -35,11 +43,11 @@ $groupId = $this->getAttributeGroup($attribute['attribute_id']);
                 =='text' || $attribute['frontend_input'] == 'text'){echo 'selected';} ?> >Text Field</option>
                 <option value="textarea" <?php if($this->getRequest()->getParam('inputType')=='textarea' || $attribute['frontend_input'] == 'textarea'){echo 'selected';} ?> >Text Area</option>
                 <option value="date" <?php if($this->getRequest()->getParam('inputType')=='date' || $attribute['frontend_input'] == 'date'){echo 'selected';} ?>>Date</option>
-                <option value="boolean" <?php if($this->getRequest()->getParam('inputType')=='boolean' || $attribute['frontend_input'] == 'boolean'){echo 'selected';} ?>>Yes/No</option>
-                <option value="multiselect" <?php if($this->getRequest()->getParam('inputType')=='multiselect' || $attribute['frontend_input'] == 'multiselect'){echo 'selected';} ?>>Multiple Select</option>
+                <!-- <option value="boolean" <?php //if($this->getRequest()->getParam('inputType')=='boolean' || $attribute['frontend_input'] == 'boolean'){echo 'selected';} ?>>Yes/No</option>
+ -->                <option value="multiselect" <?php if($this->getRequest()->getParam('inputType')=='multiselect' || $attribute['frontend_input'] == 'multiselect'){echo 'selected';} ?>>Multiple Select</option>
                 <option value="select" <?php if($this->getRequest()->getParam('inputType')=='select' || $attribute['frontend_input'] == 'select' ){echo 'selected';} ?>>Dropdown</option>s
                 <option value="price" <?php if($this->getRequest()->getParam('inputType')=='price' || $attribute['frontend_input'] == 'price'){echo 'selected';} ?>>Price</option>
-                <option value="media_image" <?php if($this->getRequest()->getParam('inputType')=='media_image' || $attribute['frontend_input'] == 'media_image'){echo 'selected';} ?>>Media Image</option>
+                <!-- <option value="media_image" <?php// if($this->getRequest()->getParam('inputType')=='media_image' || $attribute['frontend_input'] == 'media_image'){echo 'selected';} ?>>Media Image</option> -->
 </select>            </td>
     </tr>
 
@@ -80,39 +88,42 @@ $groupId = $this->getAttributeGroup($attribute['attribute_id']);
 <option value="1" <?php if($attribute['is_required']==1){ echo 'selected' ;}?> >Yes</option>
 <option value="0"  <?php if($attribute['is_required']==0){ echo 'selected' ;}?> <?php if(!$attribute['is_required']){ echo 'selected'; } ?> >No</option>
 </select>            </td>
+
     </tr>
-<tr>
+
+<!-- <tr>
         <td class="label"><label for="frontend_class">Input Validation for Store Owner: </label></td>
     <td class="value">
         <select   id="frontend_class" name="attribute[frontend_class]" title="Input Validation for Store Owner" class=" select">
 <option value="" selected="selected">None</option>
-<option value="validate-number" <?php if($attribute['frontend_class']=='validate-number'){echo 'selected'; } ?>  >Decimal Number</option>
-<option value="validate-digits" <?php if($attribute['frontend_class']=='validate-digits'){echo 'selected'; } ?> >Integer Number</option>
-<option value="validate-email" <?php if($attribute['frontend_class']=='validate-email'){echo 'selected'; } ?> >Email</option>
-<option value="validate-url" <?php if($attribute['frontend_class']=='validate-url'){echo 'selected'; } ?> >URL</option>
-<option value="validate-alpha" <?php if($attribute['frontend_class']=='validate-alpha'){echo 'selected'; } ?> >Letters</option>
-<option value="validate-alphanum" <?php if($attribute['frontend_class']=='validate-alphanum'){echo 'selected'; } ?> >Letters (a-z, A-Z) or Numbers (0-9)</option>
+<option value="validate-number" <?php //if($attribute['frontend_class']=='validate-number'){echo 'selected'; } ?>  >Decimal Number</option>
+<option value="validate-digits" <?php //if($attribute['frontend_class']=='validate-digits'){echo 'selected'; } ?> >Integer Number</option>
+<option value="validate-email" <?php //if($attribute['frontend_class']=='validate-email'){echo 'selected'; } ?> >Email</option>
+<option value="validate-url" <?php //if($attribute['frontend_class']=='validate-url'){echo 'selected'; } ?> >URL</option>
+<option value="validate-alpha" <?php //if($attribute['frontend_class']=='validate-alpha'){echo 'selected'; } ?> >Letters</option>
+<option value="validate-alphanum" <?php //if($attribute['frontend_class']=='validate-alphanum'){echo 'selected'; } ?> >Letters (a-z, A-Z) or Numbers (0-9)</option>
 </select>            </td>
-    </tr>
+    </tr>   -->
             </div>
         </div>
 </div>
 <!-- <tr>
    <td> -->
    <?php if($this->getRequest()->getParam('inputType')=='multiselect' || $this->getRequest()->getParam('inputType')=='select' || $attribute['frontend_input']=='multiselect' || $attribute['frontend_input']=='select' ) : ?> 
+     
      <div class="entity-edit" id="matage-options-panel">
     <div class="entry-edit-head">
     </div>
     <div class="box">
         <div class="hor-scroll">
-            <table class="dynamic-grid" cellspacing="0"  cellpadding="0">
-                <tr id="attribute-options-table">
-                                          <!--   <th>Admin</th>
-                                            <th>Default Store View</th>
-                                            <th>Position</th>
-                        <th class="nobr a-center">Is Default</th> -->
+            <table width="100%" border="3" class="dynamic-grid" cellspacing="0"  cellpadding="0">
+                <tr  id="attribute-options-table">
+                                            <th class="first1" >Admin</th>
+                                            <th class="second2" >Default Store View</th>
+                                            <th  class="third3" >Position</th>
+                        <th  class="four4 nobr a-center">Is Default</th>
                         <th>
-                                                            <button  id="add_new_option_button" title="Add Option" type="button" class="scalable add" onclick="" style=""><span><span><span>Add Option</span></span></span></button>                                                    </th>
+                                                            <button  id="add_new_option_button" title="Add Option" type="button" class="scalable add" onclick="see()" style=""><span><span><span>Add Option</span></span></span></button>                                                    </th>
                     </tr>
                     <tr class="no-display template" id="row-template">
                                                 <td><input name="option[value][{{id}}][0]" placeholder="Admin" value="{{store0}}" class=" required-option" type="text" /></td>
@@ -128,10 +139,11 @@ $groupId = $this->getAttributeGroup($attribute['attribute_id']);
         <input type="hidden" id="option-count-check" value="" />
     </div>
 </div>
+
+
 <script type="text/javascript">
 //<![CDATA[
-var optionDefaultInputType = 'radio';
-
+var optionDefaultInputType = "<?php echo $typep; ?>";
 // IE removes quotes from element.innerHTML whenever it thinks they're not needed, which breaks html.
 var templateText =
         '<tr class="option-row">'+
@@ -238,14 +250,12 @@ Validation.addAllThese([
     ['required-options-count', 'Options is required', function(v) {
         return !Validation.get('IsEmpty').test(v);
 }]]);
+
+<?php foreach ($this->getOptionValues() as $_value): ?>
+    attributeOption.add(<?php echo $_value->toJson() ?>);
+<?php endforeach; ?>
  
- <?php $options = array_reverse($options); ?>
-<?php for ($i=0; $i<count($options); $i+=2) { ?>
-
-<?php echo 'attributeOption.add({"checked":"","intype":"checkbox","id":"'.$options[$i]['option_id'].'","sort_order":"'.$options[$i]['sort_order'].'","store0":"'.$options[$i]['value'].'","store1":"'.$options[$i+1]['value'].'"});' ?>
-
-<?php } ?>    
-
+ 
 //]]>
 </script>
 
@@ -275,6 +285,14 @@ Validation.addAllThese([
       var form = document.getElementById('form');
       form.setAttribute('action',"<?php echo $this->getUrl('*/*/inputType'); ?>");
       form.submit();
+  }
+
+  function see() {
+     
+     document.getElementsByClassName('first1')[0].style.display='';
+     document.getElementsByClassName('second2')[0].style.display='';
+     document.getElementsByClassName('third3')[0].style.display='';
+     document.getElementsByClassName('four4')[0].style.display='';
   }
 
 </script> 

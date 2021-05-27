@@ -145,7 +145,7 @@ class Ccc_Vendor_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Widge
                 'index'  => 'sku',
             ));
 
-        $this->addColumn('catalog_product_id',
+          $this->addColumn('catalog_product_id',
             array(
                 'header' => Mage::helper('vendor')->__('Catalog Product Id'),
                 'width'  => '50px',
