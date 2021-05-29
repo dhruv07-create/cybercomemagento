@@ -1,0 +1,86 @@
+<h3 class="icon-head head-adminhtml-vendor-attribute"><?php echo $this->getHeaderText(); ?></h3>
+<button style="float: right;" id="id_573a6279578cd8e9bae8cd6590bee179" title="Back" type="button" class="scalable back" onclick="window.location.href = '<?php echo $this->getUrl('*/adminhtml_order/'); ?>'" style=""><span><span><span>Back</span></span></span></button><br>
+<hr><br>
+
+<form method='post' action="<?php echo $this->getUrl('*/*/save'); ?>" >  
+  <?php echo $this->getBlockHtml('formkey'); ?>
+  <table style="width: 100%" cellspacing="2">
+  	<tbody>
+  		<tr>
+  			<td>
+               <br><br>
+  			</td>
+  		</tr>
+      <tr>
+        <td style="padding: 10px" colspan="2">
+           <?php echo $this->getChildHtml('customer_info');?>
+        </td>
+
+      </tr>
+  	  <tr>
+  	  	<td colspan="2" style="padding: 10px">
+  	      <?php echo $this->getChildHtml('add_cart_product'); ?>
+  	  	</td>
+  	  </tr>
+     
+      <tr>
+        <td>
+               <br>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2" style="padding: 10px">
+          <?php echo $this->getChildHtml('cart_items'); ?>
+        </td>
+      </tr>	
+
+  	 
+      <tr>
+  	  	<td style="padding: 10px">
+  	      <?php echo $this->getChildHtml('cart_billing'); ?>
+  	  	</td>
+  	  	<td style="padding: 10px" >
+  	      <?php echo $this->getChildHtml('cart_shipping'); ?>
+  	     </td>  		
+  	  </tr>
+      
+       <tr>
+        <td>
+               <br>
+        </td>
+      </tr> 
+  	
+      <tr>
+  	  	<td style="padding: 10px">
+  	  		<?php echo $this->getChildHtml('cart_payment'); ?>
+  	  	</td> 
+         <td style="padding: 10px">
+  	  		<?php echo $this->getChildHtml('cart_shipment'); ?>
+  	  	</td>
+
+  	  </tr>
+      
+       <tr>
+        <td>
+               <br>
+        </td>
+      </tr> 
+  	 
+      <tr>
+  	  	<td>
+  	  		
+  	  	</td>
+  	  	<td style="padding: 10px">
+  	  		<?php echo $this->getChildHtml('cart_total');?>
+  	  	</td>
+  	  </tr>
+  	 </tbody> 
+  </table>	
+
+</form>
+
+
+<script type="text/javascript">
+  
+</script>

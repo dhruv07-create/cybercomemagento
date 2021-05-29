@@ -1,0 +1,41 @@
+<?php
+
+$payment_method = $this->getPaymentMethod();
+
+?>
+
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <div style="float: right;"></div>
+        <h4 class="fieldset-legend head-payment-method icon-head">Payment Method</h4>
+        <input type="submit" name="payment_methods" style="float: right">
+    </div>
+    <div class="fieldset">
+        <div id="order-billing_method_form">
+    <dl class="payment-methods">
+                <dt>
+                    <span class="no-display"><input id="p_method_free" value="free" type="radio" name="payment[method]" checked="checked"></span>
+        
+            <label for="p_method_free">
+                
+                  <?php $methods = $this->getPayemntMethodTitle(); ?>
+                <div class="entry-edit">
+                    <span class="nowrap" style="font-size:10px;">
+                        <?php foreach ($methods as $key => $value) : ?>
+                            <?php echo $value->getTitle(); ?>
+                            <input type="radio" name="billingMethod" value="<?php echo $value->getTitle(); ?>" <?php if($payment_method==$value->getTitle()){echo 'checked';} ?> ><br>
+                        <?php endforeach; ?>
+                    </span>
+                </div>
+
+
+
+            </label>
+        </dt>
+        <dd>
+                    </dd>
+        </dl>
+</div>
+
+    </div>
+</div>

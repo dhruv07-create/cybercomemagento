@@ -1,0 +1,106 @@
+<?php  $billing_address = $this->getShippingAddress();
+
+?>
+
+<div class="entry-edit" style="position: relative;">
+
+    <div class="entry-edit-head">
+        <h4 class="icon-head fieldset-legend head-shipping-address">Shipping Address</h4>
+        <input style="float: right;" type="submit" value="save" name="save_cart_ship_address" class="scalable task">
+
+     </div>
+
+    <fieldset class="np">
+     <div id="order-shipping_address_choice" class="order-choose-address">
+        <br>
+                    <input type="checkbox" id="order-shipping_as_billing" name="shipping_as_billing" value="1">
+            <label for="order-shipping_as_billing" class="no-float">Same As Billing Address</label>
+            </div>
+
+    <div class="order-address" id="order-shipping_address_fields">
+        <div class="content">
+                <div class="hor-scroll">
+                        <table cellspacing="0" class="form-list">
+            <tbody>
+                <tr>
+        <td class="label"><label for="order-shipping_address_prefix">Prefix</label></td>
+    <td class="value">
+        <input id="order-shipping_address_prefix" name="cart[shipping_address][prefix]" value="<?php echo $billing_address->getPrefix(); ?>" class=" input-text" type="text">            </td>
+    </tr>
+<tr>
+        <td class="label"><label for="order-shipping_address_firstname">First Name <span class="required">*</span></label></td>
+    <td class="value">
+        <input id="order-shipping_address_firstname" name="cart[shipping_address][firstname]" value="<?php echo $billing_address->getFirstname(); ?>" class=" required-entry input-text required-entry" type="text">            </td>
+    </tr>
+<tr>
+        <td class="label"><label for="order-shipping_address_middlename">Middle Name/Initial</label></td>
+    <td class="value">
+        <input id="order-shipping_address_middlename" name="cart[shipping_address][middlename]" value="<?php echo $billing_address->getMiddlename(); ?>" class=" input-text" type="text">            </td>
+    </tr>
+<tr>
+        <td class="label"><label for="order-shipping_address_lastname">Last Name <span class="required">*</span></label></td>
+    <td class="value">
+        <input id="order-shipping_address_lastname" name="cart[shipping_address][lastname]" value="<?php echo $billing_address->getLastname(); ?>" class=" required-entry input-text required-entry" type="text">            </td>
+    </tr>
+<tr>
+        <td class="label"><label for="order-shipping_address_suffix">Suffix</label></td>
+    <td class="value">
+        <input id="order-shipping_address_suffix" name="cart[shipping_address][suffix]" value="<?php echo $billing_address->getSuffix(); ?>" class=" input-text" type="text">            </td>
+    </tr>
+<!-- <tr>
+        <td class="label"><label for="order-shipping_address_company">Company</label></td>
+    <td class="value">
+        <input id="order-shipping_address_company" name="order[shipping_address][company]" value="" class=" input-text" type="text">            </td>
+    </tr>
+<tr> -->
+        <td class="label"><label for="order-shipping_address_street0">Street Address <span class="required">*</span></label></td>
+    <td class="value">
+        <div class="multi-input"><input id="order-shipping_address_street0" name="cart[shipping_address][street]" value="<?php if(is_array($billing_address->getStreet())){echo $billing_address->getStreet()[0];} else {echo $billing_address->getStreet();}  ?>" class="input-text required-entry" type="text">
+</div><!-- <div class="multi-input"><input id="order-shipping_address_street1" name="order[shipping_address][street][1]" value="" class="input-text" type="text">
+</div> -->            </td>
+    </tr>
+<tr>
+        <td class="label"><label for="order-shipping_address_city">City <span class="required">*</span></label></td>
+    <td class="value">
+        <input id="order-shipping_address_city" name="cart[shipping_address][city]" value="<?php echo $billing_address->getCity(); ?>" class=" required-entry input-text required-entry" type="text">            </td>
+    </tr>
+<tr>
+        <td class="label"><label for="order-shipping_address_country_id">Country <span class="required">*</span></label></td>
+    <td class="value">
+
+         <select id="country" name="cart[shipping_address][country]" class="required-entry required-entry select">
+            <?php foreach ($this->getCountryOptions() as $country) : ?>
+                <option value="<?php echo $country['value'] ?>" <?php if ($country['value'] == $billing_address->getCountry() ){ echo "selected";} ?>><?php echo $country['label']; ?></option>
+            <?php endforeach; ?>
+        </select> 
+
+       </td>
+    </tr>
+<tr><td class="label"><label for="order-shipping_address_region">State/Province <span class="required" style="display: none;">*</span></label>
+</td><td class="value"><input id="order-shipping_address_region" name="cart[shipping_address][state]" value="<?php if($billing_address->getState()){echo $billing_address->getState();}else{echo $billing_address->getRegion(); } ?>" class="input-text" type="text">
+<select id="order-shipping_address_region_id" name="cart[shipping_address][region_id]" class="select" style="display:none" defaultvalue="" disabled=""><option value="">Please select</option></select>
+</td></tr>
+<tr>
+        <td class="label"><label for="order-shipping_address_postcode">Zip/Postal Code <span class="required">*</span></label></td>
+    <td class="value">
+        <input id="order-shipping_address_postcode" name="cart[shipping_address][zipcode]" value="<?php if($billing_address->getZipcode()){echo $billing_address->getZipcode();}else{echo $billing_address->getPostcode(); } ?>" class=" required-entry input-text required-entry" type="text">            </td>
+    </tr>
+<tr>
+        <td class="label"><label for="order-shipping_address_telephone">Telephone <span class="required">*</span></label></td>
+    <td class="value">
+        <input id="order-shipping_address_telephone" name="cart[shipping_address][telephone]" value="<?php echo $billing_address->getTelephone(); ?>" class=" required-entry input-text required-entry" type="text">            </td>
+    </tr>
+
+            </tbody>
+        </table>
+            </div>
+            </div>
+        <div class="order-save-in-address-book">
+            <input name="save_in_address_book" type="checkbox" id="order-shipping_address_save_in_address_book" value="1">
+            <label for="order-shipping_address_save_in_address_book">Save in address book</label>
+        </div>
+    </div>
+        <div style="display: none; position: absolute; background-color: rgb(153, 153, 153); opacity: 0.8; width: 300px; height: 637px; top: 0px; left: 0px;" id="address-shipping-overlay" class="overlay"><span>Shipping address selection is not applicable</span></div>
+    
+    </fieldset>
+</div>

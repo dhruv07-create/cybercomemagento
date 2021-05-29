@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+       <order1_adminhtml_order_index>
+          <reference name='content'>
+               <block type='order1/adminhtml_order' name='order_Grid' ></block>      	   
+          </reference>
+       </order1_adminhtml_order_index>
+
+       <order1_adminhtml_order_create_start>
+    	   <reference name='content' >
+    	   	  <block type='order1/adminhtml_order_customer' name='customer_grid'></block>
+    	   </reference>
+       </order1_adminhtml_order_create_start> 
+
+       <order1_adminhtml_order_create_index>
+         <reference name="left">
+            <action method="setIsCollapsed"><value>true</value></action>
+        </reference>
+        <reference name="head">
+            <action method="addJs"><file>mage/adminhtml/sales.js</file></action>
+            <action method="addJs"><file>mage/adminhtml/giftmessage.js</file></action>
+            <action method="addJs"><file>mage/adminhtml/product/composite/configure.js</file></action>
+            <action method="addJs"><file>varien/configurable.js</file></action>
+            <action method="addJs"><file>mage/adminhtml/giftoptions/tooltip.js</file></action>
+            <block type="adminhtml/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml" />
+        </reference>
+        <reference name="js">
+            <block type="adminhtml/template" template="sales/order/create/js.phtml" name="create" />
+        </reference>
+           <reference name='root'>
+                <block type='order1/adminhtml_cart' name='content' template='order1/cart.phtml' > 
+                    <block type="order1/adminhtml_cart_shipping" name='cart_shipping' template="order1/cart/shipping.phtml"></block>
+                    <block type="order1/adminhtml_cart_billing" name='cart_billing' template="order1/cart/billing.phtml"></block> 
+                    <block type="order1/adminhtml_cart_payment" name='cart_payment' template="order1/cart/payment.phtml"></block> 
+                    <block type="order1/adminhtml_cart_shipment" name='cart_shipment' template="order1/cart/shipment.phtml"></block> 
+                     <block type="order1/adminhtml_cart_addProduct" name='add_cart_product' template="order1/cart/addproduct.phtml">
+                         <block  type='order1/adminhtml_cart_product' name='pro-grid'></block>
+                     </block> 
+                       <block type="order1/adminhtml_cart_accountInfo" name='customer_info' template="order1/cart/accountinformation.phtml"></block> 
+                     <block type="order1/adminhtml_cart_total" name='cart_total' template="order1/cart/total.phtml"></block> 
+                     <block type="order1/adminhtml_cart_cartItems" name='cart_items' template="order1/cart/cartitems.phtml"></block> 
+                </block>
+           </reference>
+       </order1_adminhtml_order_create_index> 
+
+       <order1_adminhtml_order_edit>
+           
+         <reference name='content'>
+                <block type='order1/adminhtml_order_edit_order' name='final' template='order1/order.phtml' > 
+                  <block type='order1/adminhtml_order_edit_order_payment' template='order1/order/payment.phtml' name='payment'></block>
+                  <block type='order1/adminhtml_order_edit_order_shippment' template='order1/order/shippment.phtml' name='shippment'></block>
+                   <block type='order1/adminhtml_order_edit_order_billing' template='order1/order/billing.phtml' name='billing'></block>
+                    <block type='order1/adminhtml_order_edit_order_shipping' template='order1/order/shipping.phtml' name='shipping'></block>
+                  <block type='order1/adminhtml_order_edit_order_total' template='order1/order/total.phtml' name='total'></block>
+                  <block type='order1/adminhtml_order_edit_order_orderItem' template='order1/order/orderitem.phtml' name='order_item'></block>
+                  <block type='order1/adminhtml_order_edit_order_accountInfo' template='order1/order/accountinformation.phtml' name='info'></block> 
+                </block>
+           </reference>
+
+       </order1_adminhtml_order_edit>
+
+
+ 
+  
+</layout>

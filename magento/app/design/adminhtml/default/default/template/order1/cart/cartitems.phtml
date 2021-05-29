@@ -1,0 +1,73 @@
+<?php
+  $cartItems = $this->getCartItems();
+
+?>
+
+<div id="order-items"><div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-cart">Cart Items</h4>
+      
+         <button class="scalable add" style="float: right;" onclick="show1()" type="button"><span>Add Products</span></button>
+    </div>
+    
+    <div class="grid" id="order-items_grid">
+        <table cellspacing="0"  border="5" class="data order-tables">
+            <colgroup><col>
+            <col width="100">
+            <col width="40">
+            <col width="100">
+            <col width="80">
+            <col width="100">
+            <col width="80">
+            </colgroup><thead>
+            </thead>
+            <tbody>
+                <tr>
+                  <td colspan="5">
+                       <?php if($cartItems->getData()): ?>
+        <input style="float: right;" type="submit" value="Update" name="updateitemquantity" class="scalable task">
+        <?php endif; ?>
+                  </td>
+                </tr>
+                <tr class="even" >
+                	<?php if($cartItems->getData()){?>
+                    <td width="100%">
+                		
+                			<tr>
+                				<th>Product_Id</th>
+                				<th>Product_sku</th>
+                				<th>Product_Name</th>
+                				<th>Product_Quantity</th>
+                                <th>Action</th>
+                			</tr>
+
+                		<?php foreach ($cartItems as  $product) { ?>
+                			<tr>
+                				<td style="width: 40px"><?php echo $product->getProductId() ?></td>
+                				<td><?php echo $product->getSku() ?></td>
+                				<td><?php echo $product->getName() ?></td>
+                				<td><input type="number"  name="cartitem[<?php echo $product->getId();?>]" min='1' value="<?php echo $product->getQuantity() ?>"></td>
+                                <td><a href="<?php echo $this->getUrl('*/*/deleteItem',['id'=>$product->getId()]) ?>">DELETE</a>
+                                </td>
+                			</tr>
+
+                		   <?php } ?>	
+                        </td>	
+                		<?php }else{ ?>
+                    <td  class="empty-text a-center" colspan="100">No items In Cart</td>
+                    <?php } ?>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+<script type="text/javascript">
+   
+   function show1() {
+          var td = document.getElementById('item_grid');
+          td.style.display = '';
+      }  
+  
+</script>

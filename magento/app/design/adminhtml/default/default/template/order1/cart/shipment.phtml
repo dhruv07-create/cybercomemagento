@@ -1,0 +1,25 @@
+<?php
+
+$shippingMethods = $this->getShippingMethods();
+$shippingMethod = $this->getShippingMethod();
+?>
+
+<div class="entry-edit" style="position: relative;">
+    <div class="entry-edit-head">
+        <div style="float: right;"></div>
+        <h4 class="fieldset-legend head-shipping-method icon-head">Shipping Method</h4>
+         <input type="submit" name="shipping_methods" style="float: right">
+    </div>
+    <div class="fieldset">
+            <div id="order-shipping-method-summary">
+        <a href="#" onclick="order.loadShippingRates();return false">
+                   </a>
+          <?php foreach ($shippingMethods as $key => $method){?>
+            <input type="radio" name="shippingMethod" <?php if($shippingMethod==$method->getConfigData('name').'/'.$method->getConfigData('price')){echo 'checked';}?> value="<?php echo $method->getConfigData('name').'/'.$method->getConfigData('price'); ?>" class="required-entry"> <?php echo $method->getConfigData('name').'-'.'$ '.$method->getConfigData('price'); ?><br>
+        <?php } ?>
+    </div>
+<div style="display: none; position: absolute; background-color: rgb(153, 153, 153); opacity: 0.8; width: 300px; height: 62px; top: 0px; left: 0px;" id="shipping-method-overlay" class="overlay"><span>Shipping method selection is not applicable</span></div>
+
+    </div>
+</div>
+

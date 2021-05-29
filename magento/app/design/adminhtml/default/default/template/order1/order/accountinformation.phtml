@@ -1,0 +1,31 @@
+<?php  $customer = $this->getOrder()->getCustomer();  ?>
+
+                         
+<?php $customer_id = $customer->getId(); ?>
+<div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-account">Account Information</h4>
+            <div class="tools"></div>
+        </div>
+        <div class="fieldset">
+            <div class="hor-scroll">
+                <table cellspacing="0" class="form-list">
+                <tbody><tr>
+                    <td class="label"><label>Customer Name</label></td>
+                    <td class="value">
+                      <?php echo $customer->getFirstname().' '.$customer->getLastname().' '.$customer->getMiddlename(); ?>
+                </td>
+                </tr>
+                <tr>
+                    <td class="label"><label>Email</label></td>
+                    <td class="value"><strong><?php echo $customer->getEmail(); ?></strong></td>
+                </tr>
+                   
+                <tr>
+                    <td class="label"><label>Middle Name/Initial</label></td>
+                    <td class="value"><strong><?php echo $customer->getMiddlename(); ?></strong></td>
+                </tr>
+         </tbody></table>
+            </div>
+        </div>
+    </div>

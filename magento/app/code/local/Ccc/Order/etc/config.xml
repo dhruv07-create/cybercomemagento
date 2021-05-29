@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+	<modules>
+		<Ccc_Order>
+			<version>0.0.2</version>
+		</Ccc_Order>
+	</modules>
+
+    <admin>
+    	<routers>
+    		<order1>
+    			<use>admin</use>
+    			<args>
+    				<module>Ccc_Order</module>
+    				<frontName>order1</frontName>
+    			</args>
+    		</order1>
+    	</routers>
+    </admin>
+
+    <adminhtml>
+    	  <layout>
+    	  	         <updates>
+    	  	         	 <order1>
+    	  	         	 	<file>order.xml</file>
+    	  	         	 </order1>
+    	  	         </updates>
+    	  </layout>
+    </adminhtml>
+
+    <global>
+    	<models>
+    		<order1>
+    			<class>Ccc_Order_Model</class>
+    			<resourceModel>resource_order_model</resourceModel>
+    		</order1>
+    		<resource_order_model>
+    			<class>Ccc_Order_Model_Resource</class>
+                <entities>
+                    <cart_address>
+                        <table>cart_address</table>
+                    </cart_address>
+                    <cart>
+                        <table>cart</table>
+                    </cart>
+                    <cart_item>
+                        <table>cart_item</table>
+                    </cart_item>
+                    <order_item>
+                        <table>order_item</table>
+                    </order_item>
+                    <order>
+                        <table>order</table>
+                    </order>
+                    <order_address>
+                        <table>order_address</table>
+                    </order_address>
+                </entities>
+    		</resource_order_model>
+    	</models>
+
+        <blocks>
+        	<order1>
+        		<class>Ccc_Order_Block</class>
+        	</order1>
+        </blocks>
+
+        <helpers>
+        	<order1>
+        		<class>Ccc_Order_Helper</class>
+        	</order1>
+        </helpers>
+
+        <resources>
+            <order_setup>
+                <setup>
+                    <module>Ccc_Order</module>
+                </setup>
+            </order_setup>
+        </resources>
+
+    </global>
+
+</config>

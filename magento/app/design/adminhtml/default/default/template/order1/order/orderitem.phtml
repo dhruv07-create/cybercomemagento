@@ -1,0 +1,38 @@
+<?php $items = $this->getOrder()->getOrderItems(); ?>
+
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-cart">Items Ordered</h4>
+    </div>
+    
+    <div class="grid" id="order-items_grid">
+        <table  cellspacing="0" width="100%" class="data order-tables">
+            <colgroup><col>
+            <col width="100">
+            <col width="30">
+            <col width="90">
+            <col width="10">
+            <col width="0">
+            </colgroup><thead>
+                <tr class="headings">
+                    <th class="no-link">Product</th>
+                    <th class="no-link">Price</th>
+                    <th class="no-link">Sku</th>
+                    <th class="no-link">Qty</th>
+                    <th class="no-link">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($items as $product): ?>
+                   <tr> 
+                    <td><?php echo $product->getName(); ?></td>
+                    <td><?php echo (int)$product->getPrice(); ?></td>
+                    <td><?php echo $product->getSku(); ?></td>
+                    <td><?php echo $product->getQuantity(); ?></td>
+                    <td><?php echo $product->getDescription(); ?></td>
+                   </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

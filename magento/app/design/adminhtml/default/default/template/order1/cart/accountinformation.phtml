@@ -1,0 +1,36 @@
+<div id="order-form_account"><div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head fieldset-legend head-account">Account Information</h4>
+    </div>
+    <div id="customer_account_fieds">
+            <div class="fieldset " id="main">
+    <div class="hor-scroll">
+                        <table cellspacing="0" class="form-list">
+            <tbody>
+                <tr>
+        <td class="label"><label for="group_id">Group <span class="required">*</span></label></td>
+    <td class="value">
+        <select disabled id="group_id" name="order[account][group_id]" class=" required-entry required-entry select">
+<option value="1" <?php if($this->getCustomer()->getGroupId()==1){echo 'selected';} ?>  >General</option>
+<option value="2" <?php if($this->getCustomer()->getGroupId()==2){echo 'selected';} ?>>Wholesale</option>
+<option value="3" <?php if($this->getCustomer()->getGroupId()==3){echo 'selected';} ?>>Retailer</option>
+</select>            </td>
+    </tr>
+    <tr>
+        <td class="label"><label for="email">Name</label></td>
+    <td class="value">
+        <input disabled id="name" disabled name="order[account][email]" value="<?php echo $this->getCustomer()->getFirstname().' '.$this->getCustomer()->getMiddlename().' '.$this->getCustomer()->getLastname(); ?>" class="validate-email input-text" type="text">            </td>
+    </tr>   
+<tr>
+        <td class="label"><label for="email">Email</label></td>
+    <td class="value">
+        <input disabled id="email" name="order[account][email]" value="<?php echo $this->getCustomer()->getEmail(); ?>" class="validate-email input-text" type="text">            </td>
+    </tr>      
+            </tbody>
+        </table>
+            </div>
+        </div>
+    </div>
+    
+</div>
+</div>

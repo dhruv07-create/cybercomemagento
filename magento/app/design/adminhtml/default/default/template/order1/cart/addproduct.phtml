@@ -1,0 +1,54 @@
+<div id='item_grid' style="display: none">    
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-cart">Please Select Products to Add</h4>
+        <!-- <button class="scalable add" style="float: right;" onclick="show1()" type="button"><span>Products List</span></button> -->
+      <button class="scalable add" style="float: right;" onclick="hi()" type="button"><span>Add Product(s) TO Cart</span></button>
+    </div>
+    
+    <div class="grid" id="order-items_grid">
+        <table cellspacing="0" class="data order-tables">
+            <colgroup><col>
+            <col width="100">
+            <col width="40">
+            <col width="100">
+            <col width="80">
+            <col width="100">
+            <col width="80">
+            </colgroup><thead>
+                <tr class="headings">
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="even">
+<!--                  <td class="empty-text a-center" colspan="100">No ordered items</td>
+ -->                
+                    <td width="100%">
+                        
+                        <?php
+                           echo $this->getChildHtml('pro-grid');
+                        ?>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+ </div>
+</div>
+
+<script type="text/javascript">
+
+    function hi() {
+       
+       var button = document.getElementsByClassName('scalable ')[2];
+       console.log(button);
+       var select = document.getElementById('productGrid_massaction-select');
+       select.value='add_to_cart'; 
+       button.click();
+    }
+
+</script> 
+
+
+
