@@ -1,3 +1,5 @@
+<form method="post" action="<?php echo $this->getUrl('*/*/checkout'); ?>" >
+<?php echo $this->getBlockHtml('formkey'); ?>
 <div class="box-right entry-edit">
             <div class="entry-edit-head"><h4>Order Totals</h4></div>
             <div id="order-totals" class="order-totals"><div><table cellspacing="0" cellpadding="8" width="100%">
@@ -34,9 +36,10 @@
         <label for="send_confirmation" class="normal">Email Order Confirmation</label>
         <input type="checkbox" id="send_confirmation" name="order[send_confirmation]" value="1" checked="checked">
     </p>
- -->        <p><input type="submit" name="checkout" value="Submit"></p>
+ -->        <p><button class="scalable add" style="float: right;" type="submit"><span>Let's Checkout</span></button></p>
 </div>
 
 
 </div></div>
         </div>
+</form>        

@@ -2,11 +2,13 @@
 
 ?>
 
+<form method="post" action="<?php echo $this->getUrl('*/*/saveShippingAddress'); ?>" >
+<?php echo $this->getBlockHtml('formkey'); ?>
 <div class="entry-edit" style="position: relative;">
 
     <div class="entry-edit-head">
         <h4 class="icon-head fieldset-legend head-shipping-address">Shipping Address</h4>
-        <input style="float: right;" type="submit" value="save" name="save_cart_ship_address" class="scalable task">
+         <button class="scalable add" style="float: right;" onclick="removeRequired();" type="submit"><span>Save</span></button>
 
      </div>
 
@@ -30,7 +32,7 @@
 <tr>
         <td class="label"><label for="order-shipping_address_firstname">First Name <span class="required">*</span></label></td>
     <td class="value">
-        <input id="order-shipping_address_firstname" name="cart[shipping_address][firstname]" value="<?php echo $billing_address->getFirstname(); ?>" class=" required-entry input-text required-entry" type="text">            </td>
+        <input  id="order-shipping_address_firstname" name="cart[shipping_address][firstname]" value="<?php echo $billing_address->getFirstname(); ?>" required class="required_shipping required-entry input-text required-entry" type="text">            </td>
     </tr>
 <tr>
         <td class="label"><label for="order-shipping_address_middlename">Middle Name/Initial</label></td>
@@ -40,7 +42,7 @@
 <tr>
         <td class="label"><label for="order-shipping_address_lastname">Last Name <span class="required">*</span></label></td>
     <td class="value">
-        <input id="order-shipping_address_lastname" name="cart[shipping_address][lastname]" value="<?php echo $billing_address->getLastname(); ?>" class=" required-entry input-text required-entry" type="text">            </td>
+        <input id="order-shipping_address_lastname" name="cart[shipping_address][lastname]" value="<?php echo $billing_address->getLastname(); ?>" required class="required_shipping required-entry input-text required-entry" type="text">            </td>
     </tr>
 <tr>
         <td class="label"><label for="order-shipping_address_suffix">Suffix</label></td>
@@ -55,20 +57,20 @@
 <tr> -->
         <td class="label"><label for="order-shipping_address_street0">Street Address <span class="required">*</span></label></td>
     <td class="value">
-        <div class="multi-input"><input id="order-shipping_address_street0" name="cart[shipping_address][street]" value="<?php if(is_array($billing_address->getStreet())){echo $billing_address->getStreet()[0];} else {echo $billing_address->getStreet();}  ?>" class="input-text required-entry" type="text">
+        <div class="multi-input"><input id="order-shipping_address_street0" name="cart[shipping_address][street]" value="<?php if(is_array($billing_address->getStreet())){echo $billing_address->getStreet()[0];} else {echo $billing_address->getStreet();}  ?>" required class="required_shipping input-text required-entry" type="text">
 </div><!-- <div class="multi-input"><input id="order-shipping_address_street1" name="order[shipping_address][street][1]" value="" class="input-text" type="text">
 </div> -->            </td>
     </tr>
 <tr>
         <td class="label"><label for="order-shipping_address_city">City <span class="required">*</span></label></td>
     <td class="value">
-        <input id="order-shipping_address_city" name="cart[shipping_address][city]" value="<?php echo $billing_address->getCity(); ?>" class=" required-entry input-text required-entry" type="text">            </td>
+        <input id="order-shipping_address_city" name="cart[shipping_address][city]" value="<?php echo $billing_address->getCity(); ?>" required class="required_shipping required-entry input-text required-entry" type="text">            </td>
     </tr>
 <tr>
         <td class="label"><label for="order-shipping_address_country_id">Country <span class="required">*</span></label></td>
     <td class="value">
 
-         <select id="country" name="cart[shipping_address][country]" class="required-entry required-entry select">
+         <select id="country" name="cart[shipping_address][country]" required class="required_shipping required-entry required-entry select">
             <?php foreach ($this->getCountryOptions() as $country) : ?>
                 <option value="<?php echo $country['value'] ?>" <?php if ($country['value'] == $billing_address->getCountry() ){ echo "selected";} ?>><?php echo $country['label']; ?></option>
             <?php endforeach; ?>
@@ -83,14 +85,13 @@
 <tr>
         <td class="label"><label for="order-shipping_address_postcode">Zip/Postal Code <span class="required">*</span></label></td>
     <td class="value">
-        <input id="order-shipping_address_postcode" name="cart[shipping_address][zipcode]" value="<?php if($billing_address->getZipcode()){echo $billing_address->getZipcode();}else{echo $billing_address->getPostcode(); } ?>" class=" required-entry input-text required-entry" type="text">            </td>
+        <input id="order-shipping_address_postcode" name="cart[shipping_address][zipcode]" value="<?php if($billing_address->getZipcode()){echo $billing_address->getZipcode();}else{echo $billing_address->getPostcode(); } ?>" required class="required_shipping required-entry input-text required-entry" type="text">            </td>
     </tr>
 <tr>
         <td class="label"><label for="order-shipping_address_telephone">Telephone <span class="required">*</span></label></td>
     <td class="value">
-        <input id="order-shipping_address_telephone" name="cart[shipping_address][telephone]" value="<?php echo $billing_address->getTelephone(); ?>" class=" required-entry input-text required-entry" type="text">            </td>
+        <input id="order-shipping_address_telephone" name="cart[shipping_address][telephone]" value="<?php echo $billing_address->getTelephone(); ?>" required class="required_shipping required-entry input-text required-entry" type="text">            </td>
     </tr>
-
             </tbody>
         </table>
             </div>
@@ -104,3 +105,21 @@
     
     </fieldset>
 </div>
+</form>
+<script type="text/javascript">
+    function removeRequired() {
+            
+        var c = document.getElementById('order-shipping_as_billing');
+
+        if(c.checked)
+        {
+           var n = document.getElementsByClassName('required_shipping');
+           var i;
+           for(i = 0 ; i<=6 ; i++)
+           {
+              n[i].removeAttribute('required');
+           }
+        }
+
+    }
+</script>

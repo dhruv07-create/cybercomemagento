@@ -27,8 +27,8 @@
         <reference name="js">
             <block type="adminhtml/template" template="sales/order/create/js.phtml" name="create" />
         </reference>
-           <reference name='root'>
-                <block type='order1/adminhtml_cart' name='content' template='order1/cart.phtml' > 
+           <reference name='content'>
+                <block type='order1/adminhtml_cart' name='main' template='order1/cart.phtml'> 
                     <block type="order1/adminhtml_cart_shipping" name='cart_shipping' template="order1/cart/shipping.phtml"></block>
                     <block type="order1/adminhtml_cart_billing" name='cart_billing' template="order1/cart/billing.phtml"></block> 
                     <block type="order1/adminhtml_cart_payment" name='cart_payment' template="order1/cart/payment.phtml"></block> 

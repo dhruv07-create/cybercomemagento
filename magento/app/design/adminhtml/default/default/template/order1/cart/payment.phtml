@@ -1,14 +1,15 @@
 <?php
 
-$payment_method = $this->getPaymentMethod();
+$payment_method = $this->getCart()->getPaymentCode();
 
 ?>
-
+<form method="post" action="<?php echo $this->getUrl('*/*/saveBillingMathod'); ?>" >
+<?php echo $this->getBlockHtml('formkey'); ?>
 <div class="entry-edit">
     <div class="entry-edit-head">
         <div style="float: right;"></div>
         <h4 class="fieldset-legend head-payment-method icon-head">Payment Method</h4>
-        <input type="submit" name="payment_methods" style="float: right">
+         <button class="scalable add" style="float: right;"  type="submit"><span>Save</span></button>
     </div>
     <div class="fieldset">
         <div id="order-billing_method_form">
@@ -23,13 +24,10 @@ $payment_method = $this->getPaymentMethod();
                     <span class="nowrap" style="font-size:10px;">
                         <?php foreach ($methods as $key => $value) : ?>
                             <?php echo $value->getTitle(); ?>
-                            <input type="radio" name="billingMethod" value="<?php echo $value->getTitle(); ?>" <?php if($payment_method==$value->getTitle()){echo 'checked';} ?> ><br>
+                            <input type="radio" name="billingMethod" required value="<?php echo $value->getTitle(); ?>" <?php if($payment_method==$value->getTitle()){echo 'checked';} ?> ><br>
                         <?php endforeach; ?>
                     </span>
                 </div>
-
-
-
             </label>
         </dt>
         <dd>
@@ -39,3 +37,4 @@ $payment_method = $this->getPaymentMethod();
 
     </div>
 </div>
+</form>

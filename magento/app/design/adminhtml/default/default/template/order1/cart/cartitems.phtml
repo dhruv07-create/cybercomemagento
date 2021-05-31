@@ -1,8 +1,9 @@
 <?php
-  $cartItems = $this->getCartItems();
+  $cartItems = $this->getCart()->getCartItems();
 
 ?>
-
+<form method="post" name="cartItemForm" action="<?php echo $this->getUrl('*/*/updateItemQuantity'); ?>" >
+<?php echo $this->getBlockHtml('formkey'); ?>
 <div id="order-items"><div class="entry-edit">
     <div class="entry-edit-head">
         <h4 class="icon-head head-cart">Cart Items</h4>
@@ -25,7 +26,11 @@
                 <tr>
                   <td colspan="5">
                        <?php if($cartItems->getData()): ?>
-        <input style="float: right;" type="submit" value="Update" name="updateitemquantity" class="scalable task">
+       <!--  <input style="float: right;" type="submit" value="Update" name="updateitemquantity" class="scalable task"> -->
+
+
+
+        <button class="scalable add" style="float: right;"  type="submit"><span>Update</span></button>
         <?php endif; ?>
                   </td>
                 </tr>
@@ -47,10 +52,19 @@
                 				<td><?php echo $product->getSku() ?></td>
                 				<td><?php echo $product->getName() ?></td>
                 				<td><input type="number"  name="cartitem[<?php echo $product->getId();?>]" min='1' value="<?php echo $product->getQuantity() ?>"></td>
-                                <td><a href="<?php echo $this->getUrl('*/*/deleteItem',['id'=>$product->getId()]) ?>">DELETE</a>
+                                <td><input type="submit" name="delete" onclick="deleteIt()" value="DELETE">
                                 </td>
                 			</tr>
+                          <script type="text/javascript">
+                               function deleteIt() {
 
+                                    var form = document.getElementsByName('cartItemForm')[0];
+
+                                    form.setAttribute('action','<?php echo $this->getUrl('*/*/deleteItem',['id'=>$product->getId()]); ?>')
+
+                                  }
+
+                          </script>
                 		   <?php } ?>	
                         </td>	
                 		<?php }else{ ?>
@@ -62,12 +76,14 @@
     </div>
 </div>
 </div>
-
+</form>
 <script type="text/javascript">
    
    function show1() {
           var td = document.getElementById('item_grid');
           td.style.display = '';
       }  
+
+ 
   
 </script>
