@@ -7,11 +7,11 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
         return Mage::getSingleton('order1/session');
     }
 
-    public function newAction()
+/*    public function newAction()
     {
-        //$this->_redirect();
+        $this->_redirect('adminhtml/customer/new');
     }
-
+*/
     public function indexAction()
      {  
         $this->_title($this->__('Order'))->_title($this->__('Orders'))->_title($this->__('New Order'));
