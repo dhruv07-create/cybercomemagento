@@ -1,8 +1,15 @@
 <?php
 $installer = $this;
 $installer->startSetup();
+
+
+$installer->run("
+    ALTER TABLE `order` CHANGE `status` `status` VARCHAR(32) NULL DEFAULT NULL COMMENT 'Status';
+    ");
+
+
 //
-$table = $installer->getConnection()
+/*$table = $installer->getConnection()
     ->newTable($installer->getTable('order1/order'))
         ->addColumn('order_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
             'unsigned'  => true,
@@ -190,8 +197,8 @@ $table = $installer->getConnection()
     ->addForeignKey($installer->getFkName('order1/order_item', 'order_id', 'order1/order', 'order_id'),
         'order_id', $installer->getTable('order1/order'), 'order_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->setComment('Order Item');
-$installer->getConnection()->createTable($table);
-
+    ->setComment('Order Item');*/
+/*$installer->getConnection()->createTable($table);
+*/
 
 $installer->endSetup();
