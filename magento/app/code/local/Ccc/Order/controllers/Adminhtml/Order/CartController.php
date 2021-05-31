@@ -11,7 +11,7 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
      {  
         $this->_title($this->__('Order'))->_title($this->__('Orders'))->_title($this->__('New Order'));
         $cart = $this->getCart();
-        print_r($cart->getCustomer()->getBillingAddress()); die();
+       
         $this->loadLayout();
         $this->getLayout()->getBlock('main')->setCart($cart);
         $this->_setActiveMenu('order1/order1')
