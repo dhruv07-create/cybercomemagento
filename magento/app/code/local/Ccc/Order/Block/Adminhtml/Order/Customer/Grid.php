@@ -77,7 +77,7 @@ class Ccc_Order_Block_Adminhtml_Order_Customer_Grid extends Mage_Adminhtml_Block
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/session',['customer_id'=>$row->getId()]);
+        return $this->getUrl('*/*/index',['customer_id'=>$row->getId()]);
     }
 
     public function getGridUrl()

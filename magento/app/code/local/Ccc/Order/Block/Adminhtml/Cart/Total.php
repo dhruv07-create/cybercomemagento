@@ -3,18 +3,31 @@
 
  class Ccc_Order_Block_Adminhtml_Cart_Total extends Mage_Core_Block_Template
  {
+ 	protected $cart = null;
  	public function __construct()
  	{
  		parent::__construct();
  	}
 
- 	public function getSub()
+ 	public function setCart(Ccc_Order_Model_Cart $cart)
  	{
- 		return Mage::getModel('order1/cart')->load(Mage::getModel('order1/session')->getCartId())->getBaseGrandTotal();
+ 		$this->cart = $cart;
+ 		return $this;
  	}
 
  	public function getCart()
  	{
- 		return Mage::getModel('order1/cart')->load(Mage::getModel('order1/session')->getCartId());
+ 		if($this->cart)
+ 		{
+ 			return $this->cart;
+ 		}
+
+ 		return null;
+ 	}
+
+
+ 	public function getSub()
+ 	{
+ 		return $this->getCart()->getBaseGrandTotal();
  	}
  }

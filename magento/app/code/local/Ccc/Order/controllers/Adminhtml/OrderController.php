@@ -9,11 +9,22 @@ class Ccc_Order_Adminhtml_OrderController extends Mage_Adminhtml_Controller_Acti
 
 	}
 
+  public function getCart()
+  {
+    $cart_id = (int)$this->getRequest()->getParam('cart_id');
+    if($cart_id)
+    {
+      return Mage::getModel('order1/cart')->load($cart_id);
+    } 
+
+    return null;
+  }
+
 	public function editAction()
 	{
        $this->loadLayout();
        $order_id = $this->getRequest()->getParam('order_id');
-	   $order = Mage::getModel('order1/order')->load($order_id);
+	     $order = Mage::getModel('order1/order')->load($order_id);
        $h = $this->getLayout()->getBlock('final')->setOrder($order);
        $this->renderLayout();		
 	}
@@ -22,65 +33,63 @@ class Ccc_Order_Adminhtml_OrderController extends Mage_Adminhtml_Controller_Acti
 	{  
 
        try{
+        		$order_id = $this->getRequest()->getParam('order_id');
+        		if($this->getRequest()->getPost('save_order_bill_address'))
+        		{
+        			$order_billing_address = Mage::getModel('order1/order')->load($order_id)->getOrderBillingAddress();
+                    $data = $this->getRequest()->getPost('order')['billing_address'];
+
+                    $order_billing_address->addData($data);
+                    if($order_billing_address->save())
+                    {
+                    	Mage::getSingleton('adminhtml/session')->addSuccess('Address Updated Successfully');
+                    }else{
+                    	throw new Exception("Error Processing Address", 1);
+                    	
+                    } 
+
+                $this->_redirect('*/adminhtml_order/edit',['_current'=>true]);
+
+        		}elseif ($this->getRequest()->getPost('save_order_ship_address')) 
+        		{
+                     
+                     $order_shipping_address = Mage::getModel('order1/order')->load($order_id)->getOrderShippingAddress();
+                    $data = $this->getRequest()->getPost('order')['shipping_address'];
+
+                    $order_shipping_address->addData($data);
+                   
+                    if( $order_shipping_address->save())
+                    {
+                    	Mage::getSingleton('adminhtml/session')->addSuccess('Address Updated Successfully');
+                    }else{
+                    	throw new Exception("Error Processing Address", 1);
+                    } 
 
 
-		$order_id = $this->getRequest()->getParam('order_id');
-		if($this->getRequest()->getPost('save_order_bill_address'))
-		{
-			$order_billing_address = Mage::getModel('order1/order')->load($order_id)->getOrderBillingAddress();
-            $data = $this->getRequest()->getPost('order')['billing_address'];
+                 $this->_redirect('*/adminhtml_order/edit',['_current'=>true]);
 
-            $order_billing_address->addData($data);
-            if($order_billing_address->save())
-            {
-            	Mage::getSingleton('adminhtml/session')->addSuccess('Address Updated Successfully');
-            }else{
-            	throw new Exception("Error Processing Address", 1);
-            	
-            } 
+        		}else 
+        		{
 
-        $this->_redirect('*/adminhtml_order/edit',['_current'=>true]);
+        	    $id = $this->saveOrderData();
+        	    if($id)
+        	    {
+        	       $this->_getSession()->addSuccess('Checkout Successfully');	
+        	    }else{
+        	    	throw new Exception("Checkout Fail", 1);
+        	    }
+        		   $this->saveOrderShippingAdd($id);
+        		   $this->saveOrderBillingAdd($id);
+        	     $this->saveOrderItems($id); 
+                
+        	      $cart = Mage::getModel('order1/cart')->load($this->getCart()->getId());
+        	     if(!$cart->delete())
+        	     {
+        	     	throw new Exception('Error To Process Checkout', 1);
+        	     	
+        	     } 
 
-		}elseif ($this->getRequest()->getPost('save_order_ship_address')) 
-		{
-             
-             $order_shipping_address = Mage::getModel('order1/order')->load($order_id)->getOrderShippingAddress();
-            $data = $this->getRequest()->getPost('order')['shipping_address'];
-
-            $order_shipping_address->addData($data);
-           
-            if( $order_shipping_address->save())
-            {
-            	Mage::getSingleton('adminhtml/session')->addSuccess('Address Updated Successfully');
-            }else{
-            	throw new Exception("Error Processing Address", 1);
-            } 
-
-
-         $this->_redirect('*/adminhtml_order/edit',['_current'=>true]);
-
-		}else 
-		{
-
-	    $id = $this->saveOrderData();
-	    if($id)
-	    {
-	       $this->_getSession()->addSuccess('Checkout Successfully');	
-	    }else{
-	    	throw new Exception("Checkout Fail", 1);
-	    }
-		$this->saveOrderShippingAdd($id);
-		$this->saveOrderBillingAdd($id);
-	    $this->saveOrderItems($id); 
-        $session = Mage::getModel('order1/session');
-	     $cart = Mage::getModel('order1/cart')->load($session->getCartId());
-	     if(!$cart->delete())
-	     {
-	     	throw new Exception('Error To Process Checkout', 1);
-	     	
-	     } 
-
-		}
+        		}
 
 	    }catch(Exception $e)
         {
@@ -107,8 +116,8 @@ class Ccc_Order_Adminhtml_OrderController extends Mage_Adminhtml_Controller_Acti
 
 	public function saveOrderItems($id)
 	{ 
-		$session = Mage::getModel('order1/session');
-	    $items = Mage::getModel('order1/cart')->load($session->getCartId())->getCartItems();
+		
+	    $items = $this->getCart()->getCartItems();
     
 
 	    foreach ($items as  $item)
@@ -124,15 +133,13 @@ class Ccc_Order_Adminhtml_OrderController extends Mage_Adminhtml_Controller_Acti
 
 	public function saveOrderData()
 	{
-		$session = Mage::getModel('order1/session');
-
-		$cart = Mage::getModel('order1/cart')->load($session->getCartId());
+		
+     $cart = $this->getCart();
 
 		$order = Mage::getModel('order1/order');
         
         $data = $cart->getData();
-
-        $customer = Mage::getModel('customer/customer')->load($session->getCustomerId())->getData();
+        $customer = Mage::getModel('customer/customer')->load($cart->getCustomer()->getId())->getData();
         $order_data = [];
 
         $order_data['cart_id']=$data['cart_id'];
@@ -161,8 +168,9 @@ class Ccc_Order_Adminhtml_OrderController extends Mage_Adminhtml_Controller_Acti
    public function saveOrderShippingAdd($id)
    {   
    	  try {
-   	  	$session = Mage::getModel('order1/session');
-   	   $cart_address = Mage::getModel('order1/cart')->load($session->getCartId())->getCartShippingAddress()->getData();
+        $cart = $this->getCart();
+   	  	
+   	   $cart_address = $cart->getCartShippingAddress()->getData();
         
        unset($cart_address['cart_id']);  
        unset($cart_address['address_id']);  
@@ -184,9 +192,8 @@ class Ccc_Order_Adminhtml_OrderController extends Mage_Adminhtml_Controller_Acti
    public function saveOrderBillingAdd($id)
    {
    	  try {
-   	  	
-   	  	$session = Mage::getModel('order1/session'); 
-   	   $cart_address = Mage::getModel('order1/cart')->load($session->getCartId())->getCartBillingAddress()->getData();
+   	   $cart = $this->getCart(); 
+   	   $cart_address = $cart->getCartBillingAddress()->getData();
         
        unset($cart_address['cart_id']);
        unset($cart_address['address_id']);  

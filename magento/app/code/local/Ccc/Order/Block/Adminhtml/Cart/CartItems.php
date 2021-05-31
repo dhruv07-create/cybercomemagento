@@ -3,13 +3,25 @@
 
  class Ccc_Order_Block_Adminhtml_Cart_CartItems extends Mage_Core_Block_Template
  {
+ 	public $cart = null;
  	public function __construct()
  	{
  		parent::__construct();
  	}
 
- 	public function getCartItems()
+ 	public function setCart(Ccc_Order_Model_Cart $cart)
  	{
- 		 return Mage::getModel('order1/cart')->load(Mage::getModel('order1/session')->getCartId())->getCartItems();
+ 		$this->cart = $cart;
+ 		return $this;
+ 	}
+
+ 	public function getCart()
+ 	{
+ 		if($this->cart)
+ 		{
+ 			return $this->cart;
+ 		}
+
+ 		return null;
  	}
  }

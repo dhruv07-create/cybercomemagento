@@ -8,7 +8,7 @@ class Ccc_Order_Block_Adminhtml_Cart_Product_Grid extends Mage_Adminhtml_Block_W
         $this->setDefaultSort('entity_id');
         $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
-       // $this->setFilterVisibility(false);
+        $this->setFilterVisibility(false);
         $this->setUseAjax(false);
         $this->setPagerVisibility(false);
         $this->setVarNameFilter('product_filter');

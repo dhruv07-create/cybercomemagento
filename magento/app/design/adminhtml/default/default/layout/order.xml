@@ -6,13 +6,13 @@
           </reference>
        </order1_adminhtml_order_index>
 
-       <order1_adminhtml_order_create_start>
+       <order1_adminhtml_order_cart_start>
     	   <reference name='content' >
     	   	  <block type='order1/adminhtml_order_customer' name='customer_grid'></block>
     	   </reference>
-       </order1_adminhtml_order_create_start> 
+       </order1_adminhtml_order_cart_start> 
 
-       <order1_adminhtml_order_create_index>
+       <order1_adminhtml_order_cart_index>
          <reference name="left">
             <action method="setIsCollapsed"><value>true</value></action>
         </reference>
@@ -41,7 +41,7 @@
                      <block type="order1/adminhtml_cart_cartItems" name='cart_items' template="order1/cart/cartitems.phtml"></block> 
                 </block>
            </reference>
-       </order1_adminhtml_order_create_index> 
+       </order1_adminhtml_order_cart_index> 
 
        <order1_adminhtml_order_edit>
            

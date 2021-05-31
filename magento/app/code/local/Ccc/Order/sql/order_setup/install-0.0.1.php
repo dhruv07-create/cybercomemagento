@@ -170,7 +170,7 @@ $installer->getConnection()->createTable($table);
 
 
 //order Table
-/*$table = $installer->getConnection()
+$table = $installer->getConnection()
     ->newTable($installer->getTable('order1/order'))
         ->addColumn('order_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
             'unsigned'  => true,
@@ -360,6 +360,6 @@ $table = $installer->getConnection()
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Order Item');
 $installer->getConnection()->createTable($table);
-*/
+
 
 $installer->endSetup();
