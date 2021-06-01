@@ -10,6 +10,7 @@ class Ccc_Order_Block_Adminhtml_Cart_Product extends Mage_Adminhtml_Block_Widget
     public function __construct()
     {
         parent::__construct();
+
         $this->setTemplate('catalog/product.phtml');
         
     }

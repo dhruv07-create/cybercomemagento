@@ -8,9 +8,9 @@ class Ccc_Order_Block_Adminhtml_Cart_Product_Grid extends Mage_Adminhtml_Block_W
         $this->setDefaultSort('entity_id');
         $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
-        $this->setFilterVisibility(false);
-        $this->setUseAjax(false);
-        $this->setPagerVisibility(false);
+        //$this->setFilterVisibility(false);
+        $this->setUseAjax(true);
+        $this->setPagerVisibility(true);
         $this->setVarNameFilter('product_filter');
 
 
@@ -162,7 +162,8 @@ class Ccc_Order_Block_Adminhtml_Cart_Product_Grid extends Mage_Adminhtml_Block_W
 
         $this->getMassactionBlock()->addItem('add_to_cart', array(
              'label'=> Mage::helper('catalog')->__('Add To Cart'),
-             'url'  => $this->getUrl('*/*/addToCart')
+             'url'  => $this->getUrl('*/*/addToCart'),
+             'selected'=>true
         ));
 
         return $this;
@@ -170,16 +171,8 @@ class Ccc_Order_Block_Adminhtml_Cart_Product_Grid extends Mage_Adminhtml_Block_W
   
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/index', array('_current'=>true));
-    }
+        return $this->getUrl('*/*/showProduct', array('_current'=>true));
 
-    public function getRowUrl($row)
-    {
-     //   return $this->getUrl('*/*/edit', array(
-     //       'store'=>$this->getRequest()->getParam('store'),
-     //       'id'=>$row->getId())
-     //   );
     }
-
 
 }

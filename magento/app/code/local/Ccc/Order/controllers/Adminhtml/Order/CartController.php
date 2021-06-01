@@ -1,7 +1,8 @@
 <?php
 class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller_Action
 {
-    
+    protected $_publicActions = ['AddToCart','index']; 
+
     protected function _getSession()
     {
         return Mage::getSingleton('order1/session');
@@ -247,6 +248,13 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
               ->save() 
               ;
       }*/
+
+    public function showProductAction()
+      {
+
+        $this->getResponse()->setBody($this->getLayout()->createBlock('order1/adminhtml_cart_product_grid')->toHtml());
+
+      }  
     
     public function saveBillingMathodAction()
     {
