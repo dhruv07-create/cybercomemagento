@@ -174,7 +174,7 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
 
     public function AddToCartAction()
       {  
-        echo 'dhruv'; die();
+       
       try{
 
          $cart = $this->getCart();

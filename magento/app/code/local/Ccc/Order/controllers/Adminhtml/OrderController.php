@@ -81,7 +81,16 @@ class Ccc_Order_Adminhtml_OrderController extends Mage_Adminhtml_Controller_Acti
         	    }
         		   $this->saveOrderShippingAdd($id);
         		   $this->saveOrderBillingAdd($id);
-        	     $this->saveOrderItems($id); 
+        	     $this->saveOrderItems($id);
+
+               $status = Mage::getModel('order1/order_status')
+               ->setOrderId($id)
+               ->setStatus('Pending')
+               ->setComment('')
+               ->setIsCustomerNotified(0)
+               ->setCreatedAt(date('Y-m-d H:i:s'))
+               ->save()
+               ; 
                 
         	      $cart = Mage::getModel('order1/cart')->load($this->getCart()->getId());
         	     if(!$cart->delete())
@@ -212,6 +221,24 @@ class Ccc_Order_Adminhtml_OrderController extends Mage_Adminhtml_Controller_Acti
    	  }
    	   
       return;
+   }
+
+   public function saveStatusAction()
+   {
+
+    $order = $this->getRequest()->getParam('order_id');
+    $data = $this->getRequest()->getPost('history');
+      
+     $status = Mage::getModel('order1/order_status')
+               ->setOrderId($order)
+               ->setStatus($data['status'])
+               ->setComment($data['comment'])
+               ->setIsCustomerNotified($data['is_customer_notified'])
+               ->setCreatedAt(date('Y-m-d H:i:s'))
+               ->save()
+               ; 
+
+       $this->_redirect('*/*/edit',['_current'=>true]);        
    }
 }
 

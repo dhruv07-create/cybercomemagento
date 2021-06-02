@@ -49,8 +49,9 @@
                 <block type='order1/adminhtml_order_edit_order' name='final' template='order1/order.phtml' > 
                   <block type='order1/adminhtml_order_edit_order_payment' template='order1/order/payment.phtml' name='payment'></block>
                   <block type='order1/adminhtml_order_edit_order_shippment' template='order1/order/shippment.phtml' name='shippment'></block>
-                   <block type='order1/adminhtml_order_edit_order_billing' template='order1/order/billing.phtml' name='billing'></block>
-                    <block type='order1/adminhtml_order_edit_order_shipping' template='order1/order/shipping.phtml' name='shipping'></block>
+                  <block type='order1/adminhtml_order_edit_order_billing' template='order1/order/billing.phtml' name='billing'></block>
+                  <block type='order1/adminhtml_order_edit_order_shipping' template='order1/order/shipping.phtml' name='shipping'></block>
+                  <block type='order1/adminhtml_order_edit_order_status' template='order1/order/status.phtml' name='status'></block> 
                   <block type='order1/adminhtml_order_edit_order_total' template='order1/order/total.phtml' name='total'></block>
                   <block type='order1/adminhtml_order_edit_order_orderItem' template='order1/order/orderitem.phtml' name='order_item'></block>
                   <block type='order1/adminhtml_order_edit_order_accountInfo' template='order1/order/accountinformation.phtml' name='info'></block> 

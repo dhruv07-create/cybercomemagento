@@ -5,6 +5,7 @@ class Ccc_Order_Model_Order extends Mage_Core_Model_Abstract
     protected $billingAddress = null;
     protected $shippingAddress = null;
     protected $items = null;
+    protected $status = null;
 
 	protected function _construct()
     {
@@ -107,5 +108,35 @@ class Ccc_Order_Model_Order extends Mage_Core_Model_Abstract
         $this->setOrderShippingAddress($address);
 
         return $address;             
+    }
+
+    public function setStatuses(Ccc_Order_Model_Order_Status_Collection $status)
+    {
+          $this->status = $status;
+          return $this;
+    }
+
+    public function getStatuses()
+    {
+         if($this->status)
+         {
+            return $this->status;
+         }
+
+         $status = Mage::getModel('order1/order_status')->getCollection()
+          ->addFieldToFilter('order_id',['eq'=>$this->getId()]);
+         ;
+         $this->setStatus($status);
+         return $status;
+    }
+
+    public function getCurrentStatus()
+    {
+         $status = Mage::getModel('order1/order_status')->getCollection()
+          ->addFieldToFilter('order_id',['eq'=>$this->getId()])
+          ->getLastItem() 
+          ;
+
+         return $status;
     }
 }
